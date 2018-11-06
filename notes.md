@@ -16,12 +16,13 @@ sous la tutelle de Franck Gechter.
 # Découpage de l'application
 
 l'application se consstitue de trois parties distinctes ayant chacune une fonction précise :
-    + Etape 1 : Ouverture et lecture des données JSON.
-    + Etape 2 : Traitement des données par les agents au fil du temps pour simuler les différentes propriétés physiques suivant les 
-      données sur les acteurs provennant du fichier d'entré (étape 1).
-    + Etape 3 : Envoie des données de sortie des agents par socket à une application externe.
+
++ Etape 1 : Ouverture et lecture des données JSON.
++ Etape 2 : Traitement des données par les agents au fil du temps pour simuler les différentes propriétés physiques suivant les 
+    données sur les acteurs provennant du fichier d'entré (étape 1).
++ Etape 3 : Envoie des données de sortie des agents par socket à une application externe.
 
 # Conception : Etape 1
 
 Librairie utilisé :
-    + Json.hpp
++ Json.hpp
