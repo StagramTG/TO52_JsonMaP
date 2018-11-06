@@ -22,7 +22,17 @@ l'application se consstitue de trois parties distinctes ayant chacune une foncti
     données sur les acteurs provennant du fichier d'entré (étape 1).
 + Etape 3 : Envoie des données de sortie des agents par socket à une application externe.
 
-# Conception : Etape 1
+# Analyse : Etape 1
 
 Librairie utilisé :
-+ Json.hpp
++ Json.hpp : expose une API suivant les standard de la STL pour manipuler des structures de données Json comme des conteneurs 
+  de la STL.
+
+Cette Etape consiste à récupérer les données généré par le logiciel de compréhension de scripts d'épisodes de série. Un épisode
+est représenté par un fichier Json qui contient toutes les données nécessaires pour retracer toutes les interactions entre les
+différents personnages de l'histoire.
+
+A l'issue de cette étape nous aurons une structure de donnée refletant le traitement effectué pour obtenir le fichier Json et
+permettant aux agents de commencer leurs simulations en fonctions des actions réalisés.
+
+La structure de données prend la forme suivante :
