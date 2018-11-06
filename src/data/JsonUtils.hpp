@@ -14,7 +14,4 @@
 #include "../../vendors/json.hpp"
 using Json = nlohmann::json;
 
-bool ParseFromFile(Json& pjson, std::string pfile)
-{
-    return true;
-}
+bool ParseFromFile(Json& pjson, std::string pfile);
