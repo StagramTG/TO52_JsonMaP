@@ -1,6 +1,6 @@
 #include "JsonUtils.hpp"
 
-bool ParseFromFile(Json& pjson, std::string pfile)
+bool JsonUtils::ParseFromFile(Json& pjson, std::string pfile)
 {
     std::ifstream stream;
     stream.open(pfile);
