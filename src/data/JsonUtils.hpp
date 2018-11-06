@@ -8,7 +8,7 @@
  */
 
 #include <string>
-#include <ifstream>
+#include <fstream>
 
 /** For convenience we create this notation */
 #include "../../vendors/json.hpp"

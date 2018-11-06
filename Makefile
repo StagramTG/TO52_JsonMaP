@@ -9,7 +9,7 @@ GCC  = g++
 NAME = JsonMaP
 
 # Project source files
-SRC  = src/Application.cpp
+SRC  = src/Application.cpp src/data/JsonUtils.cpp
 
 out:
 	$(GCC) -o $(NAME) $(SRC)

@@ -8,16 +8,15 @@
  */
 
 #include "data/JsonUtils.hpp"
-#include <stdio.h>
+#include <iostream>
 
 int main(int argc, char** argv)
 {
     Json json;
-    printf("size %d", json.size());
 
-    ParseFromFile(json, "test");
+    ParseFromFile(json, "/Users/tgred/Google Drive/ShareSpace/Cours/Semestre 5/TO52/Exemple.json");
 
-    printf("size %d", json.size());
+    std::cout << json["LinesCount"] << std::endl;
 
     return 0;
 }
