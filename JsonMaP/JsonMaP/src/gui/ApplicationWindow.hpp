@@ -24,9 +24,14 @@ private:
 
 	std::unique_ptr<Fl_Output> out_file_path;
 
+	std::unique_ptr<Fl_File_Chooser> fc_json_file;
+
 public:
 	ApplicationWindow();
 	~ApplicationWindow();
 
 	int Run();
+
+	/* Friend methods */
+	friend void ChooseFile_Callback(Fl_Widget* w, void* v);
 };
