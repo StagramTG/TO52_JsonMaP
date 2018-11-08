@@ -41,7 +41,10 @@
     <ClInclude Include="src\data\Action.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\data\JsonUtils.h">
+    <ClInclude Include="src\gui\Window.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\JsonUtils.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

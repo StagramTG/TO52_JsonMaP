@@ -125,7 +125,8 @@
     <ClInclude Include="src\data\Action.hpp" />
     <ClInclude Include="src\data\Character.hpp" />
     <ClInclude Include="src\data\Episode.hpp" />
-    <ClInclude Include="src\data\JsonUtils.h" />
+    <ClInclude Include="src\data\JsonUtils.hpp" />
+    <ClInclude Include="src\gui\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

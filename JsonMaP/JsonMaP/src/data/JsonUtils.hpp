@@ -1,17 +1,15 @@
 #pragma once
-/**
- *
- * Author : Thomas Gredin
- * Date   : 6th November 2018
- *
- * Json utils functions.
- *
- */
+/*
+	Author: Thomas Gredin
+	Date: 7th November 2018
+
+	Json utils functions.
+*/
 
 #include <string>
 #include <fstream>
 
- /** For convenience we create this notation */
+ /** For convenience */
 #include <nlohmann/json.hpp>
 using Json = nlohmann::json;
 
@@ -19,5 +17,8 @@ using Json = nlohmann::json;
 class JsonUtils
 {
 public:
+	/*
+		Parse given Json file and file given Json object with extracted data.
+	*/
 	static bool ParseFromFile(Json& pjson, std::string pfile);
 };
