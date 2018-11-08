@@ -115,7 +115,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\data\Action.cpp" />
+    <ClCompile Include="src\data\Character.cpp" />
+    <ClCompile Include="src\data\Episode.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\data\JsonUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\data\Action.hpp" />
+    <ClInclude Include="src\data\Character.hpp" />
+    <ClInclude Include="src\data\Episode.hpp" />
+    <ClInclude Include="src\data\JsonUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
