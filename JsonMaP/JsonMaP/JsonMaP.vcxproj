@@ -120,7 +120,7 @@
     <ClCompile Include="src\data\Episode.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\data\JsonUtils.cpp" />
-    <ClCompile Include="src\gui\Window.cpp" />
+    <ClCompile Include="src\gui\ApplicationWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\Action.hpp" />
@@ -128,7 +128,7 @@
     <ClInclude Include="src\data\Episode.hpp" />
     <ClInclude Include="src\data\Influences.hpp" />
     <ClInclude Include="src\data\JsonUtils.hpp" />
-    <ClInclude Include="src\gui\Window.hpp" />
+    <ClInclude Include="src\gui\ApplicationWindow.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
