@@ -8,7 +8,11 @@
 	between each characters of the given episode.
 */
 
+#include "gui/Window.hpp"
+
 int main(int argc, char** argv)
 {
-	return 0;
+	Window win;
+
+	return win.Run();
 }
