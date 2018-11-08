@@ -12,7 +12,7 @@
  /** For convenience */
 #include <nlohmann/json.hpp>
 using Json = nlohmann::json;
-
+using Uint = unsigned int;
 
 class JsonUtils
 {
