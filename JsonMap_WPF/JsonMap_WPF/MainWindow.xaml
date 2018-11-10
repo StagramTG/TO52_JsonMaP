@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:JsonMap_WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="594" Width="800">
-    <Grid Background="#FFFAFAFA" Margin="0,0,0.333,0.667">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,0,0.333,0.667">
         <Button x:Name="btnChooseFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" Click="OpenChooseFileDialog"/>
         <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,35" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
         <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,10" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>

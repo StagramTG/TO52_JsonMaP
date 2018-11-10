@@ -19,11 +19,12 @@ namespace JsonMap.Simulation
         public static bool SimulationShouldPause { get; set; } = false;
 
         /** Communication related */
+        public static String HostAdress { get; set; } = "127.0.0.1";
+        public static String HostPort { get; set; } = "6666";
         public static Socket ComSocket { get; set; }
 
         public static void Launch()
         {
-           
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 
+using JsonMap.Simulation;
+
 namespace JsonMap.Gui
 {
     /// <summary>
@@ -13,6 +15,21 @@ namespace JsonMap.Gui
             InitializeComponent();
 
             Title = "Réglages : Communication";
+            inHostAddress.Text = SimulationManager.HostAdress;
+            inHostPort.Text = SimulationManager.HostPort;
+        }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void SaveAndQuit(object sender, RoutedEventArgs e)
+        {
+            SimulationManager.HostAdress = inHostAddress.Text;
+            SimulationManager.HostPort = inHostPort.Text;
+
+            Close();
         }
     }
 }
