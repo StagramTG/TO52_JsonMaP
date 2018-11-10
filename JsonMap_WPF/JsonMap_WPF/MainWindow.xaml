@@ -5,28 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JsonMap_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="594" Width="800">
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,0,0.333,0.667">
-        <Button x:Name="btnChooseFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" Click="OpenChooseFileDialog"/>
-        <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,35" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,10" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnLaunchSim" Content="Lancer la simulation" HorizontalAlignment="Left" Margin="10,0,0,59" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="inFilePath" Height="20" Margin="284,10,10.333,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
-        <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="284,30,10.333,0" VerticalAlignment="Top" Height="24"/>
-        <StackPanel HorizontalAlignment="Left" Margin="10,35,0,0" Width="269" Height="229" VerticalAlignment="Top">
-            <Label Content="Informations sur l'épisode" Margin="0,0,-0.333,0" FontWeight="Bold" FontSize="14"/>
-            <Label Content="Titre"/>
-            <TextBox x:Name="lblEpisodeTitle" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
-            <Label Content="Nombre de lignes"/>
-            <TextBox x:Name="lblEpisodeLinesCount" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
-            <Label Content="Nombre de personnages"/>
-            <TextBox x:Name="lblEpisodeCharactersCount" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
-            <Label Content="Nombres d'actions"/>
-            <TextBox x:Name="lblEpisodeActionsCount" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
-        </StackPanel>
-        <Separator HorizontalAlignment="Left" Margin="10,0,0,84" Width="269" Height="10" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnOpenComSettings" Content="Paramètre de communication" HorizontalAlignment="Left" Margin="10,0,0,124" Width="269" Click="OpenComSettingsDialog" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnTestComSettings" Content="Test de connexion" HorizontalAlignment="Left" Margin="10,0,0,99" Width="269" Click="OpenChooseFileDialog" Height="20" VerticalAlignment="Bottom"/>
-        <Separator HorizontalAlignment="Left" Margin="10,0,0,149" Width="269" Height="10" VerticalAlignment="Bottom"/>
+        Title="MainWindow" Height="478" Width="800">
+    <Grid Background="#FFF0F0F0" Margin="0,0,0.333,0.667">
+        <TextBox x:Name="inFilePath" Height="20" Margin="297,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+        <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="297,30,10,0" VerticalAlignment="Top" Height="24"/>
+
+        <Grid HorizontalAlignment="Left" Width="292" Background="#FF37474F">
+            <Button x:Name="btnChooseFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" Click="OpenChooseFileDialog" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,35" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,10" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Click="StopSimulation" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Button x:Name="btnLaunchSim" Content="Lancer la simulation" HorizontalAlignment="Left" Margin="10,0,0,59" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Click="LaunchSimulation" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <StackPanel HorizontalAlignment="Left" Margin="10,35,0,0" Width="269" Height="229" VerticalAlignment="Top">
+                <Label Content="Informations sur l'épisode" Margin="0,0,-0.333,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Label Content="Titre" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <TextBox x:Name="lblEpisodeTitle" Height="23" TextWrapping="Wrap" IsReadOnly="True" Background="#FF263238" BorderBrush="#FF263238" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Label Content="Nombre de lignes" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <TextBox x:Name="lblEpisodeLinesCount" Height="23" TextWrapping="Wrap" IsReadOnly="True" Background="#FF263238" BorderBrush="#FF263238" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Label Content="Nombre de personnages" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <TextBox x:Name="lblEpisodeCharactersCount" Height="23" TextWrapping="Wrap" IsReadOnly="True" Background="#FF263238" BorderBrush="#FF263238" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Label Content="Nombres d'actions" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <TextBox x:Name="lblEpisodeActionsCount" Height="23" TextWrapping="Wrap" IsReadOnly="True" Background="#FF263238" BorderBrush="#FF263238" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            </StackPanel>
+            <Separator HorizontalAlignment="Left" Margin="10,0,0,84" Width="269" Height="10" VerticalAlignment="Bottom"/>
+            <Button x:Name="btnOpenComSettings" Content="Paramètre de communication" HorizontalAlignment="Left" Margin="10,0,0,124" Width="269" Click="OpenComSettingsDialog" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Button x:Name="btnTestComSettings" Content="Test de connexion" HorizontalAlignment="Left" Margin="10,0,0,99" Width="269" Click="OpenChooseFileDialog" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Separator HorizontalAlignment="Left" Margin="10,0,0,149" Width="269" Height="10" VerticalAlignment="Bottom"/>
+        </Grid>
     </Grid>
 </Window>

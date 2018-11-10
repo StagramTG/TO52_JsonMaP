@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
-namespace JsonMap_WPF.simulation
+namespace JsonMap.Simulation
 {
     public static class Workers
     {
@@ -15,7 +12,15 @@ namespace JsonMap_WPF.simulation
          */
         public static void SimulationWorker()
         {
+            Console.WriteLine("Simulation thread start");
 
+            while(SimulationManager.SimulationShouldRun)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Simulation thread run");
+            }
+
+            Console.WriteLine("Simulation thread stop");
         }
 
         /**
@@ -24,7 +29,15 @@ namespace JsonMap_WPF.simulation
          */
         public static void CommunicationWorker()
         {
+            Console.WriteLine("Communication thread start");
 
+            while (SimulationManager.SimulationShouldRun)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Communication thread run");
+            }
+
+            Console.WriteLine("Communication thread stop");
         }
     }
 }

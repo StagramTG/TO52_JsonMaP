@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
+using System.Threading;
 
 using JsonMap.Gui;
 using JsonMap.Simulation;
@@ -19,6 +20,12 @@ namespace JsonMap
         const string VALIDITY_UNVALID = "Fichier non valide";
         const string VALIDITY_NOFILE = "Choisir un fichier JSON valide";
 
+        /**
+         * Worker Threads instance
+         */
+        Thread SimulationThread;
+        Thread CommunicationThread;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,11 +35,12 @@ namespace JsonMap
 
         private void OpenChooseFileDialog(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = 
-                new Microsoft.Win32.OpenFileDialog();
-
-            openFileDialog.DefaultExt = ".json";
-            openFileDialog.Filter = "JSON Files (*.json)|*.json";
+            Microsoft.Win32.OpenFileDialog openFileDialog =
+                new Microsoft.Win32.OpenFileDialog
+                {
+                    DefaultExt = ".json",
+                    Filter = "JSON Files (*.json)|*.json"
+                };
 
             bool? result = openFileDialog.ShowDialog();
             if(result == true)
@@ -80,6 +88,49 @@ namespace JsonMap
         {
             CommunicationSettingsDialog settingsDial = new CommunicationSettingsDialog();
             settingsDial.ShowDialog();
+        }
+
+        /**
+         * Launch the simulation.
+         */
+        private void LaunchSimulation(object sender, RoutedEventArgs e)
+        {
+            /** Test connection to renderer application through Socket */
+            bool connectivityTest = true;
+
+            /** Launch worker threads */
+            if(connectivityTest)
+            {
+                SimulationManager.SimulationShouldRun = true;
+
+                SimulationThread = new Thread(Workers.SimulationWorker);
+                CommunicationThread = new Thread(Workers.CommunicationWorker);
+
+                SimulationThread.Start();
+                CommunicationThread.Start();
+
+                btnPauseSim.IsEnabled = true;
+                btnStopSim.IsEnabled = true;
+                btnLaunchSim.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show($"La connection à l'adresse {SimulationManager.HostAdress} " +
+                    $"sur le port {SimulationManager.HostPort} à échouée.");
+            }
+        }
+
+        private void StopSimulation(object sender, RoutedEventArgs e)
+        {
+            /** Stop simulation and wait worker thread to join */
+            SimulationManager.SimulationShouldRun = false;
+
+            SimulationThread.Join();
+            CommunicationThread.Join();
+
+            btnPauseSim.IsEnabled = false;
+            btnStopSim.IsEnabled = false;
+            btnLaunchSim.IsEnabled = true;
         }
     }
 }
