@@ -10,6 +10,10 @@ namespace JsonMap.Agent
     /// </summary>
     public class CharacterAgent
     {
+        /// <summary>
+        /// Behavior of character in given action, he is a target or an
+        /// active actor.
+        /// </summary>
         public enum Behaviors
         {
             ACTIVE,

@@ -62,9 +62,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="agent\CharacterAgent.cs" />
     <Compile Include="gui\CommunicationSettingsDialog.xaml.cs">
       <DependentUpon>CommunicationSettingsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="math\Vector3.cs" />
     <Compile Include="simulation\SimulationManager.cs" />
     <Compile Include="simulation\Workers.cs" />
     <Page Include="DarkStyles.xaml">
