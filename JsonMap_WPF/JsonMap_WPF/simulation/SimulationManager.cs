@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using JsonMap.Data;
 
 namespace JsonMap.Simulation
@@ -16,5 +17,13 @@ namespace JsonMap.Simulation
         /** Simulation global stuffs */
         public static bool SimulationShouldRun { get; set; } = false;
         public static bool SimulationShouldPause { get; set; } = false;
+
+        /** Communication related */
+        public static Socket ComSocket { get; set; }
+
+        public static void Launch()
+        {
+           
+        }
     }
 }

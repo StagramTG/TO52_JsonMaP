@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JsonMap_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#FFFAFAFA">
+        Title="MainWindow" Height="594" Width="800">
+    <Grid Background="#FFFAFAFA" Margin="0,0,0.333,0.667">
         <Button x:Name="btnChooseFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" Click="OpenChooseFileDialog"/>
-        <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,34.667" VerticalAlignment="Bottom" Width="269" IsEnabled="False"/>
-        <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,9.667" VerticalAlignment="Bottom" Width="269" IsEnabled="False"/>
-        <Button x:Name="btnLaunchSim" Content="Lancer la simulation" HorizontalAlignment="Left" Margin="10,0,0,58.667" VerticalAlignment="Bottom" Width="269" IsEnabled="False"/>
+        <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,35" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,10" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnLaunchSim" Content="Lancer la simulation" HorizontalAlignment="Left" Margin="10,0,0,59" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom"/>
         <TextBox x:Name="inFilePath" Height="20" Margin="284,10,10.333,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
         <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="284,30,10.333,0" VerticalAlignment="Top" Height="24"/>
-        <StackPanel HorizontalAlignment="Left" Margin="10,59,0,83.667" Width="269">
+        <StackPanel HorizontalAlignment="Left" Margin="10,35,0,0" Width="269" Height="229" VerticalAlignment="Top">
             <Label Content="Informations sur l'épisode" Margin="0,0,-0.333,0" FontWeight="Bold" FontSize="14"/>
             <Label Content="Titre"/>
             <TextBox x:Name="lblEpisodeTitle" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
@@ -24,5 +24,9 @@
             <Label Content="Nombres d'actions"/>
             <TextBox x:Name="lblEpisodeActionsCount" Height="23" TextWrapping="Wrap" IsReadOnly="True"/>
         </StackPanel>
+        <Separator HorizontalAlignment="Left" Margin="10,0,0,84" Width="269" Height="10" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnOpenComSettings" Content="Paramètre de communication" HorizontalAlignment="Left" Margin="10,0,0,124" Width="269" Click="OpenComSettingsDialog" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnTestComSettings" Content="Test de connexion" HorizontalAlignment="Left" Margin="10,0,0,99" Width="269" Click="OpenChooseFileDialog" Height="20" VerticalAlignment="Bottom"/>
+        <Separator HorizontalAlignment="Left" Margin="10,0,0,149" Width="269" Height="10" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.IO;
 
+using JsonMap.Gui;
 using JsonMap.Simulation;
 
 namespace JsonMap
@@ -21,6 +22,8 @@ namespace JsonMap
         public MainWindow()
         {
             InitializeComponent();
+
+            Title = "Json Multiagents Process";
         }
 
         private void OpenChooseFileDialog(object sender, RoutedEventArgs e)
@@ -71,6 +74,12 @@ namespace JsonMap
                     btnLaunchSim.IsEnabled = false;
                 }
             }
+        }
+
+        private void OpenComSettingsDialog(object sender, RoutedEventArgs e)
+        {
+            CommunicationSettingsDialog settingsDial = new CommunicationSettingsDialog();
+            settingsDial.ShowDialog();
         }
     }
 }
