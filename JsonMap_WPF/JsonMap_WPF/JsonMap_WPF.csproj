@@ -67,6 +67,10 @@
     </Compile>
     <Compile Include="simulation\SimulationManager.cs" />
     <Compile Include="simulation\Workers.cs" />
+    <Page Include="DarkStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="gui\CommunicationSettingsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

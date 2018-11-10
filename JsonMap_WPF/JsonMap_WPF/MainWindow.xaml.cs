@@ -115,8 +115,8 @@ namespace JsonMap
             }
             else
             {
-                MessageBox.Show($"La connection à l'adresse {SimulationManager.HostAdress} " +
-                    $"sur le port {SimulationManager.HostPort} à échouée.");
+                MessageBox.Show($"La connection à l'adresse {SimulationManager.HostAdress}:" +
+                    $"{SimulationManager.HostPort} à échouée.");
             }
         }
 
