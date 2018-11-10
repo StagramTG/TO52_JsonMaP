@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 
-namespace JsonMap_WPF
+namespace JsonMap
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        /**
+         * Text for indicator label (lblValidityIndicator)
+         */
+        const string VALIDITY_VALID = "Fichier valide.";
+        const string VALIDITY_UNVALID = "Fichier non valide";
+        const string VALIDITY_NOFILE = "Choisir un fichier JSON valide";
+
+        Data.Episode ep;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,10 +31,44 @@ namespace JsonMap_WPF
             openFileDialog.DefaultExt = ".json";
             openFileDialog.Filter = "JSON Files (*.json)|*.json";
 
-            Nullable<bool> result = openFileDialog.ShowDialog();
+            bool? result = openFileDialog.ShowDialog();
             if(result == true)
             {
+                /** Show selected file path */
                 inFilePath.Text = openFileDialog.FileName;
+
+                /** Check file's validity */
+                if(inFilePath.Text != string.Empty)
+                {
+                    StreamReader reader = new StreamReader(inFilePath.Text);
+                    ep = Newtonsoft.Json.JsonConvert.DeserializeObject<Data.Episode>(
+                        reader.ReadToEnd()
+                    );
+
+                    if(ep.Title != string.Empty && ep.LinesCount > 0)
+                    {
+                        lblValidityIndicator.Content = VALIDITY_VALID;
+
+                        /** Set Episode data in fields */
+                        lblEpisodeTitle.Text = ep.Title;
+                        lblEpisodeLinesCount.Text = ep.LinesCount.ToString();
+                        lblEpisodeCharactersCount.Text = ep.Characters.Count.ToString();
+                        lblEpisodeActionsCount.Text = ep.Actions.Count.ToString();
+
+                        /** Enable launch sim button */
+                        btnLaunchSim.IsEnabled = true;
+                    }
+                    else
+                    {
+                        lblValidityIndicator.Content = VALIDITY_UNVALID;
+                        btnLaunchSim.IsEnabled = false;
+                    }
+                }
+                else
+                {
+                    lblValidityIndicator.Content = VALIDITY_NOFILE;
+                    btnLaunchSim.IsEnabled = false;
+                }
             }
         }
     }
