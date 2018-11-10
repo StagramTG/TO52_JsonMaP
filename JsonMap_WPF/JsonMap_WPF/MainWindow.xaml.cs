@@ -2,6 +2,8 @@
 using System.Windows;
 using System.IO;
 
+using JsonMap.Simulation;
+
 namespace JsonMap
 {
     /// <summary>
@@ -15,8 +17,6 @@ namespace JsonMap
         const string VALIDITY_VALID = "Fichier valide.";
         const string VALIDITY_UNVALID = "Fichier non valide";
         const string VALIDITY_NOFILE = "Choisir un fichier JSON valide";
-
-        Data.Episode ep;
 
         public MainWindow()
         {
@@ -41,19 +41,20 @@ namespace JsonMap
                 if(inFilePath.Text != string.Empty)
                 {
                     StreamReader reader = new StreamReader(inFilePath.Text);
-                    ep = Newtonsoft.Json.JsonConvert.DeserializeObject<Data.Episode>(
+                    SimulationManager.CurrentEpisode = Newtonsoft.Json.JsonConvert.DeserializeObject<Data.Episode>(
                         reader.ReadToEnd()
                     );
 
-                    if(ep.Title != string.Empty && ep.LinesCount > 0)
+                    if(SimulationManager.CurrentEpisode.Title != string.Empty && 
+                        SimulationManager.CurrentEpisode.LinesCount > 0)
                     {
                         lblValidityIndicator.Content = VALIDITY_VALID;
 
                         /** Set Episode data in fields */
-                        lblEpisodeTitle.Text = ep.Title;
-                        lblEpisodeLinesCount.Text = ep.LinesCount.ToString();
-                        lblEpisodeCharactersCount.Text = ep.Characters.Count.ToString();
-                        lblEpisodeActionsCount.Text = ep.Actions.Count.ToString();
+                        lblEpisodeTitle.Text = SimulationManager.CurrentEpisode.Title;
+                        lblEpisodeLinesCount.Text = SimulationManager.CurrentEpisode.LinesCount.ToString();
+                        lblEpisodeCharactersCount.Text = SimulationManager.CurrentEpisode.Characters.Count.ToString();
+                        lblEpisodeActionsCount.Text = SimulationManager.CurrentEpisode.Actions.Count.ToString();
 
                         /** Enable launch sim button */
                         btnLaunchSim.IsEnabled = true;
