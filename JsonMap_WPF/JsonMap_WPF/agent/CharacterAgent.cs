@@ -2,6 +2,9 @@
 
 namespace JsonMap.Agent
 {
+    /// <summary>
+    /// Agent aims to simulate Character
+    /// </summary>
     public class CharacterAgent
     {
         public String Name { get; private set; }
