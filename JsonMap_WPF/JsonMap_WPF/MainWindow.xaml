@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Background="#FFF0F0F0" Margin="0,0,0.333,0.667">
+    <Grid Background="#FFF0F0F0">
         <TextBox x:Name="inFilePath" Height="20" Margin="297,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
         <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="297,30,10,0" VerticalAlignment="Top" Height="24"/>
 
