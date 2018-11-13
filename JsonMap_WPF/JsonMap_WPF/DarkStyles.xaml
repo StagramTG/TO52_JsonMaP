@@ -1,12 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:JsonMap_WPF">
-    <!-- Colors -->
+    <!-- Colors Dark -->
     <SolidColorBrush x:Key="BgcBlue">#1976d2</SolidColorBrush>
     <SolidColorBrush x:Key="BgcHoverBlue">#1565c0</SolidColorBrush>
     
     <SolidColorBrush x:Key="BgcDisabledBlue">#263238</SolidColorBrush>
     <SolidColorBrush x:Key="TextDisabledBlue">#607d8b</SolidColorBrush>
+    
+    <!-- Color Light -->
+    <SolidColorBrush x:Key="BgcLight">#b0bec5</SolidColorBrush>
+    <SolidColorBrush x:Key="BgcHoverLight">#cfd8dc</SolidColorBrush>
+
+    <SolidColorBrush x:Key="BgcDisabledLight">#eceff1</SolidColorBrush>
+    <SolidColorBrush x:Key="TextDisabledLight">#b0bec5</SolidColorBrush>
 
     <Style TargetType="Button" x:Key="DarkStyle">
         <Setter Property="Background" Value="{DynamicResource BgcBlue}"/>
@@ -41,7 +48,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{DynamicResource ResourceKey=BgcDisabledBlue}" CornerRadius="3">
+                            <Border Background="{DynamicResource BgcDisabledBlue}" CornerRadius="3">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
@@ -50,5 +57,48 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
+    <Style TargetType="Button" x:Key="LightStyle">
+        <Setter Property="Background" Value="{DynamicResource BgcLight}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BgcLight}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{DynamicResource BgcLight}" CornerRadius="3">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{DynamicResource BgcHoverLight}" CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource TextDisabledLight}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{DynamicResource BgcDisabledLight}" CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

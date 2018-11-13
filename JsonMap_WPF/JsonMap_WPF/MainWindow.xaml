@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JsonMap_WPF"
+        xmlns:local="clr-namespace:JsonMap"
         mc:Ignorable="d"
         Title="MainWindow" Height="467.333" Width="800">
 
@@ -16,14 +16,12 @@
     </Window.Resources>
 
     <Grid Background="#FFF0F0F0">
-        <TextBox x:Name="inFilePath" Height="20" Margin="297,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
-        <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="297,30,10,0" VerticalAlignment="Top" Height="24"/>
+        <TextBox x:Name="inFilePath" Height="20" Margin="297,24,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+        <Label x:Name="lblValidityIndicator" Content="Choisir un fichier JSON valide" Margin="297,0,10,0" VerticalAlignment="Top" Height="24"/>
 
         <Grid HorizontalAlignment="Left" Width="292" Background="#FF37474F">
             <Button x:Name="btnChooseFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" Click="OpenChooseFileDialog" Style="{DynamicResource DarkStyle}" Height="20"/>
-            <Button x:Name="btnPauseSim" Content="Pause" HorizontalAlignment="Left" Margin="10,0,0,35" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Style="{DynamicResource DarkStyle}"/>
-            <Button x:Name="btnStopSim" Content="Arrêter la simulation" HorizontalAlignment="Left" Margin="10,0,0,10" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Click="StopSimulation" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Style="{DynamicResource DarkStyle}"/>
-            <Button x:Name="btnLaunchSim" Content="Lancer la simulation" HorizontalAlignment="Left" Margin="10,0,0,59" Width="269" IsEnabled="False" Height="20" VerticalAlignment="Bottom" Click="LaunchSimulation" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Style="{DynamicResource DarkStyle}"/>
+
             <StackPanel HorizontalAlignment="Left" Margin="10,35,0,0" Width="269" Height="229" VerticalAlignment="Top">
                 <Label Content="Informations sur l'épisode" Margin="0,0,-0.333,0" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                 <Label Content="Titre" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -35,10 +33,23 @@
                 <Label Content="Nombres d'actions" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                 <TextBox x:Name="lblEpisodeActionsCount" Height="23" TextWrapping="Wrap" IsReadOnly="True" Background="#FF263238" BorderBrush="#FF263238" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             </StackPanel>
-            <Separator HorizontalAlignment="Left" Margin="10,0,0,84" Width="269" Height="10" VerticalAlignment="Bottom" Background="{DynamicResource BgcDisabledBlue}"/>
             <Button x:Name="btnOpenComSettings" Content="Paramètre de communication" HorizontalAlignment="Left" Margin="10,0,0,124" Width="269" Click="OpenComSettingsDialog" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Style="{DynamicResource DarkStyle}"/>
             <Button x:Name="btnTestComSettings" Content="Test de connexion" HorizontalAlignment="Left" Margin="10,0,0,99" Width="269" Click="OpenChooseFileDialog" Height="20" VerticalAlignment="Bottom" Background="#FF01579B" BorderBrush="#FF01579B" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Style="{DynamicResource DarkStyle}"/>
             <Separator HorizontalAlignment="Left" Margin="10,0,0,149" Width="269" Height="10" VerticalAlignment="Bottom" Background="{DynamicResource BgcDisabledBlue}"/>
         </Grid>
+
+        <GroupBox x:Name="SimulationControls" Header="Contrôles de la simulation" Margin="297,49,0,0" HorizontalAlignment="Left" Width="218" Height="109" VerticalAlignment="Top" Background="White">
+            <Grid>
+                <Button x:Name="btnPauseSim" Content="Pause" Margin="10,32,10,35" IsEnabled="False" Style="{DynamicResource LightStyle}"/>
+                <Button x:Name="btnStopSim" Content="Arrêter" Margin="10,57,10,10" IsEnabled="False" Click="StopSimulation" Style="{DynamicResource LightStyle}"/>
+                <Button x:Name="btnLaunchSim" Content="Lancer" Margin="10,8,10,59" IsEnabled="False" Click="LaunchSimulation" Style="{DynamicResource LightStyle}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="SimulationProgress" Header="Progression" Margin="520,49,0,0" HorizontalAlignment="Left" Width="262" Height="109" VerticalAlignment="Top" Background="White">
+            <Grid>
+                <ProgressBar Margin="0,31,0,31"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>

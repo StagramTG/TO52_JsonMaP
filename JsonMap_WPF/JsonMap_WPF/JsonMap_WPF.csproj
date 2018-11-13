@@ -66,6 +66,9 @@
     <Compile Include="gui\CommunicationSettingsDialog.xaml.cs">
       <DependentUpon>CommunicationSettingsDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="gui\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="math\Vector3.cs" />
     <Compile Include="simulation\SimulationManager.cs" />
     <Compile Include="simulation\Workers.cs" />
@@ -74,6 +77,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="gui\CommunicationSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="gui\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

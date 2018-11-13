@@ -52,7 +52,7 @@ namespace JsonMap.Agent
 
         private void ProcessActiveBehavior(Data.Action action)
         {
-
+            
         }
 
         private void ProcessPassiveBehavior(Data.Action action)
