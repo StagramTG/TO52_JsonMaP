@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5D20E2FD-928D-4E4E-8BB6-97D87CBB1934}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>JsonMap_WPF</RootNamespace>
-    <AssemblyName>JsonMap_WPF</AssemblyName>
+    <RootNamespace>JsonMap</RootNamespace>
+    <AssemblyName>JsonMap</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -66,10 +66,9 @@
     <Compile Include="gui\CommunicationSettingsDialog.xaml.cs">
       <DependentUpon>CommunicationSettingsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="gui\LogView.xaml.cs">
-      <DependentUpon>LogView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="math\Physics.cs" />
     <Compile Include="math\Vector3.cs" />
+    <Compile Include="simulation\AgentsManager.cs" />
     <Compile Include="simulation\SimulationManager.cs" />
     <Compile Include="simulation\Workers.cs" />
     <Page Include="DarkStyles.xaml">
@@ -77,10 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="gui\CommunicationSettingsDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="gui\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -46,7 +46,15 @@ namespace JsonMap.Simulation
         /// </summary>
         public static void Pause()
         {
+            SimulationShouldPause = true;
+        }
 
+        /// <summary>
+        /// Unblock thread
+        /// </summary>
+        public static void Unpause()
+        {
+            SimulationShouldPause = false;
         }
 
         /// <summary>

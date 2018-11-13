@@ -23,14 +23,14 @@ namespace JsonMap.Math
          * ==========================================
          */
         // Norm of the vector
-        public float Norm => (float)System.Math.Sqrt(System.Math.Pow(X, 2) + System.Math.Pow(Y, 2) + System.Math.Pow(Z, 2));
+        public float Norm                 => (float)System.Math.Sqrt(System.Math.Pow(X, 2) + System.Math.Pow(Y, 2) + System.Math.Pow(Z, 2));
 
         // Commonly used vectors
-        public Vector3 Forward     => new Vector3(0,0,1);
-        public Vector3 Left        => new Vector3(-1,0,0);
-        public Vector3 Right       => new Vector3(1,0,0);
-        public Vector3 Up          => new Vector3(0,1,0);
-        public Vector3 Normalized  => new Vector3(X, Y, Z) / Norm;
+        public static Vector3 Forward     => new Vector3(0,0,1);
+        public static Vector3 Left        => new Vector3(-1,0,0);
+        public static Vector3 Right       => new Vector3(1,0,0);
+        public static Vector3 Up          => new Vector3(0,1,0);
+        public Vector3 Normalized         => new Vector3(X, Y, Z) / Norm;
 
         /**
          * ==========================================

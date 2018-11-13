@@ -1,6 +1,7 @@
 ﻿using System;
 
 using JsonMap;
+using JsonMap.Data;
 using JsonMap.Math;
 
 namespace JsonMap.Agent
@@ -20,18 +21,22 @@ namespace JsonMap.Agent
             PASSIVE
         }
 
+        public static readonly float DEFAULT_WEIGHT = 0f;
+        public static readonly Vector3 DEFAULT_POSITION = new Vector3(0, 0, 0);
+
         /** identification attributes */
-        public String Name { get; private set; }
-        public int Id { get; private set; }
+        public Character CharacterData { get; private set; }
 
         /** Physical attributes */
-        public int Weight { get; private set; }
+        public float Weight { get; private set; }
         public Vector3 Position { get; private set; }
 
-        public CharacterAgent(String name, int id)
+        public CharacterAgent(Character pcharacter)
         {
-            Name = name;
-            Id = id;
+            CharacterData = pcharacter;
+
+            Weight = DEFAULT_WEIGHT;
+            Position = DEFAULT_POSITION;
         }
 
         public void Update(Data.Action action, Behaviors behavior)
