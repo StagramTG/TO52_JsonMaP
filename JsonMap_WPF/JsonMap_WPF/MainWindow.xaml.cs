@@ -20,12 +20,6 @@ namespace JsonMap
         const string VALIDITY_UNVALID = "Fichier non valide";
         const string VALIDITY_NOFILE = "Choisir un fichier JSON valide";
 
-        /**
-         * Worker Threads instance
-         */
-        Thread SimulationThread;
-        Thread CommunicationThread;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -103,11 +97,7 @@ namespace JsonMap
             {
                 SimulationManager.SimulationShouldRun = true;
 
-                SimulationThread = new Thread(Workers.SimulationWorker);
-                CommunicationThread = new Thread(Workers.CommunicationWorker);
-
-                SimulationThread.Start();
-                CommunicationThread.Start();
+                SimulationManager.Launch();
 
                 btnPauseSim.IsEnabled = true;
                 btnStopSim.IsEnabled = true;
@@ -122,11 +112,7 @@ namespace JsonMap
 
         private void StopSimulation(object sender, RoutedEventArgs e)
         {
-            /** Stop simulation and wait worker thread to join */
-            SimulationManager.SimulationShouldRun = false;
-
-            SimulationThread.Join();
-            CommunicationThread.Join();
+            SimulationManager.Stop();
 
             btnPauseSim.IsEnabled = false;
             btnStopSim.IsEnabled = false;

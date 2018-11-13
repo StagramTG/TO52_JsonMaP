@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading;
+
 using JsonMap.Data;
 
 namespace JsonMap.Simulation
@@ -23,8 +25,40 @@ namespace JsonMap.Simulation
         public static String HostPort { get; set; } = "6666";
         public static Socket ComSocket { get; set; }
 
+        /** Worker Threads instance */
+        private static Thread SimulationThread;
+        private static Thread CommunicationThread;
+
+        /// <summary>
+        /// Launch the simulation by starting Workers thread
+        /// </summary>
         public static void Launch()
         {
+            SimulationThread = new Thread(Workers.SimulationWorker);
+            CommunicationThread = new Thread(Workers.CommunicationWorker);
+
+            SimulationThread.Start();
+            CommunicationThread.Start();
+        }
+
+        /// <summary>
+        /// Block thread, pause the simulation in current state
+        /// </summary>
+        public static void Pause()
+        {
+
+        }
+
+        /// <summary>
+        /// Stop simulation thread
+        /// </summary>
+        public static void Stop()
+        {
+            /** Stop simulation and wait worker thread to join */
+            SimulationShouldRun = false;
+
+            SimulationThread.Join();
+            CommunicationThread.Join();
         }
     }
 }
