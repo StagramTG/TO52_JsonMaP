@@ -29,6 +29,9 @@ namespace JsonMap.Simulation
         private static Thread SimulationThread;
         private static Thread CommunicationThread;
 
+        /** Time manager */
+        private static TimeManager timeManager;
+
         /// <summary>
         /// Launch the simulation by starting Workers thread
         /// </summary>
@@ -36,6 +39,8 @@ namespace JsonMap.Simulation
         {
             SimulationThread = new Thread(Workers.SimulationWorker);
             CommunicationThread = new Thread(Workers.CommunicationWorker);
+
+            timeManager = TimeManager.Instance;
 
             SimulationThread.Start();
             CommunicationThread.Start();
