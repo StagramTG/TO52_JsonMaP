@@ -17,6 +17,7 @@ namespace JsonMap.Math
         public Vector3 Position         { get; private set; }
         public Vector3 Velocity         { get; private set; }
         public float FrictionFactor     { get; private set; }
+        public float Speed              => Velocity.Norm;
 
         public bool UseGravity          { get; set; } = true;
 
@@ -47,6 +48,7 @@ namespace JsonMap.Math
             if(UseGravity)
             {
                 // Apply Gravity
+                Velocity += Physics.Gravity * timeManager.DeltaTime;
             }
 
             // Apply velocity to position
