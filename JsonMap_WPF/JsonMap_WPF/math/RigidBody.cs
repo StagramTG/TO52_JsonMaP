@@ -1,47 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using JsonMap.Simulation;
+
 namespace JsonMap.Math
 {
     public class RigidBody
     {
-        /**
-         * ==========================================
-         *      FIELDS
-         * ==========================================
-         */
-        private Vector3 position;
-        private Vector3 speed;
-        private Vector3 acceleration;
+        private TimeManager timeManager;
 
         /**
          * ==========================================
          *      PROPERTIES
          * ==========================================
          */
-        public Vector3 Position        => position;
-        public Vector3 Speed           => speed;
-        public Vector3 Acceleration    => acceleration;
+        public Vector3 Position         { get; private set; }
+        public Vector3 Velocity         { get; private set; }
+        public float FrictionFactor     { get; private set; }
 
-        public bool UseGravity { get; set; } = true;
+        public bool UseGravity          { get; set; } = true;
 
         public RigidBody()
         {
-            position = new Vector3(0, 0, 0);
-            speed = new Vector3(0, 0, 0);
-            acceleration = new Vector3(0, 0, 0);
+            Position = new Vector3(0, 0, 0);
+            Velocity = new Vector3(0, 0, 0);
+
+            timeManager = TimeManager.Instance;
         }
 
         public RigidBody(Vector3 pposition)
         {
-            position = pposition;
-            speed = new Vector3(0, 0, 0);
-            acceleration = new Vector3(0, 0, 0);
+            Position = pposition;
+            Velocity = new Vector3(0, 0, 0);
+
+            timeManager = TimeManager.Instance;
         }
 
         public void ApplyForce(Vector3 pforce)
         {
-
+            Velocity += pforce;
         }
 
         public void Update()
@@ -52,9 +49,9 @@ namespace JsonMap.Math
                 // Apply Gravity
             }
 
-            // Apply acceleration to speed
-
-            // Apply speed to position
+            // Apply velocity to position
+            Velocity -= (Velocity * FrictionFactor);
+            Position += Velocity * timeManager.DeltaTime;
         }
     }
 }

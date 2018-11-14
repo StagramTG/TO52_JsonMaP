@@ -20,18 +20,20 @@ namespace JsonMap.Simulation
             }
         }
 
-        public int LastTime { get; private set; }
+        public DateTime LastTime { get; private set; }
         public float DeltaTime { get; private set; } 
 
         private TimeManager()
         {
-            LastTime = System.Environment.TickCount;
+            LastTime = DateTime.Now;
             DeltaTime = 0;
         }
 
         public void Update()
         {
-
+            DateTime currentTime = DateTime.Now;
+            DeltaTime = (LastTime - currentTime).Milliseconds / 1000f;
+            LastTime = currentTime;
         }
     }
 }
