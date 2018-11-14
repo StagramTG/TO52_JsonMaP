@@ -1,42 +1,31 @@
 ﻿using System;
 
-using JsonMap;
 using JsonMap.Data;
 using JsonMap.Math;
 
 namespace JsonMap.Agent
 {
-    /// <summary>
-    /// Agent aims to simulate Character
-    /// </summary>
+    /** Agent aims to simulate Character */
     public class CharacterAgent
     {
-        /// <summary>
-        /// Behavior of character in given action, he is a target or an
-        /// active actor.
-        /// </summary>
+        /** Behavior of character in given action, he is a target or an active actor. */
         public enum Behaviors
         {
             ACTIVE,
             PASSIVE
         }
 
-        public static readonly float DEFAULT_WEIGHT = 0f;
-        public static readonly Vector3 DEFAULT_POSITION = new Vector3(0, 0, 0);
-
         /** identification attributes */
         public Character CharacterData { get; private set; }
 
         /** Physical attributes */
-        public float Weight { get; private set; }
-        public Vector3 Position { get; private set; }
+        RigidBody rigidBody;
 
         public CharacterAgent(Character pcharacter)
         {
             CharacterData = pcharacter;
 
-            Weight = DEFAULT_WEIGHT;
-            Position = DEFAULT_POSITION;
+            rigidBody = new RigidBody();
         }
 
         public void Update(Data.Action action, Behaviors behavior)
