@@ -9,24 +9,25 @@ namespace JsonMap.Simulation
     public static class SimulationManager
     {
         /** Episode related */
-        public static Episode CurrentEpisode         { get; set; }
+        public static Episode CurrentEpisode           { get; set; }
 
         /** Data to send through socket */
         public static Object Locker = new Object();
-        public static String DataToSend              { get; set; }
-        public static bool NewDataExists             { get; set; } = false;
+        public static String DataToSend                { get; set; }
+        public static bool NewDataExists               { get; set; } = false;
 
         /** Simulation global stuffs */
-        public static bool SimulationShouldRun       { get; set; } = false;
-        public static bool SimulationShouldPause     { get; set; } = false;
+        public static bool SimulationShouldRun         { get; set; } = false;
+        public static bool SimulationShouldPause       { get; set; } = false;
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }
+        public static AgentsManager AgsManager      { get; private set; }
 
         /** Communication related */
-        public static String HostAdress              { get; set; } = "127.0.0.1";
-        public static String HostPort                { get; set; } = "6666";
-        public static Socket ComSocket               { get; set; }
+        public static String HostAdress                { get; set; } = "127.0.0.1";
+        public static String HostPort                  { get; set; } = "6666";
+        public static Socket ComSocket                 { get; set; }
 
         /** Worker Threads instance */
         private static Thread SimulationThread;
@@ -43,10 +44,15 @@ namespace JsonMap.Simulation
             SimulationThread = new Thread(Workers.SimulationWorker);
             CommunicationThread = new Thread(Workers.CommunicationWorker);
 
+            /** Init stuff to manage threads and time */
             timeManager = TimeManager.Instance;
             PauseEvent = new ManualResetEvent(true);
             SimSyncEvent = new ManualResetEvent(false);
             ComSyncEvent = new ManualResetEvent(true);
+
+            /** Init agents stuff */
+            AgsManager = new AgentsManager();
+            AgsManager.Setup(CurrentEpisode);
 
             SimulationThread.Start();
             CommunicationThread.Start();
