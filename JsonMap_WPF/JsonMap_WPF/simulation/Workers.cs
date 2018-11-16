@@ -17,12 +17,34 @@ namespace JsonMap.Simulation
          */
         public static void SimulationWorker()
         {
+            float elapsedTimeProcessing = 0f;
+            float elapsedTimeSimulation = 0f;
+
             Console.WriteLine("Simulation thread start");
 
+            TimeManager.Instance.Update();
             while(SimulationManager.SimulationShouldRun)
             {
+                /** Process simulation for next line */
+                if(elapsedTimeProcessing >= ProcessingTimeStep)
+                {
+                    elapsedTimeProcessing = 0f;
+                }
+
+                /** Process physic simulation for current line */
+                if(elapsedTimeSimulation >= SimulationTimeStep)
+                {
+                    elapsedTimeSimulation = 0f;
+                }
+
                 Thread.Sleep(500);
                 Console.WriteLine("Simulation thread run");
+
+                /** Update elapsed times */
+                float elapsedTime = TimeManager.Instance.DeltaTime;
+                elapsedTimeProcessing += elapsedTime;
+                elapsedTimeSimulation += elapsedTime;
+                TimeManager.Instance.Update();
             }
 
             Console.WriteLine("Simulation thread stop");
