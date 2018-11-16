@@ -19,13 +19,13 @@ namespace JsonMap.Agent
         public Character CharacterData { get; private set; }
 
         /** Physical attributes */
-        RigidBody rigidBody;
+        public RigidBody Body { get; private set; }
 
         public CharacterAgent(Character pcharacter)
         {
             CharacterData = pcharacter;
 
-            rigidBody = new RigidBody();
+            Body = new RigidBody();
         }
 
         public void Update(Data.Action action, Behaviors behavior)

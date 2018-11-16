@@ -8,17 +8,22 @@ namespace JsonMap.Simulation
 {
     public class AgentsManager
     {
-        Dictionary<string, CharacterAgent> agents;
+        public Dictionary<string, CharacterAgent> Agents { get; private set; }
+        public int Count => Agents.Count;
 
         public AgentsManager()
         {
-            agents = new Dictionary<string, CharacterAgent>();
+            Agents = new Dictionary<string, CharacterAgent>();
         }
 
         public bool Setup(Episode pepisode)
         {
             // Create an agent for each characters for given episode
-            
+            foreach(Character character in pepisode.Characters)
+            {
+                CharacterAgent ca = new CharacterAgent(character);
+                Agents.Add(character.Name, ca);
+            }
 
             return true;
         }
