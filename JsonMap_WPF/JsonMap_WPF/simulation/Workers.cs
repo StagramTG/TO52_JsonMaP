@@ -25,6 +25,13 @@ namespace JsonMap.Simulation
             TimeManager.Instance.Update();
             while(SimulationManager.SimulationShouldRun)
             {
+                if(SimulationManager.SimulationShouldPause)
+                {
+                    Console.WriteLine("Simulation pause");
+                    SimulationManager.PauseEvent.WaitOne();
+                    Console.WriteLine("Simulation unpause");
+                }
+
                 /** Process simulation for next line */
                 if(elapsedTimeProcessing >= ProcessingTimeStep)
                 {
@@ -35,10 +42,17 @@ namespace JsonMap.Simulation
                 if(elapsedTimeSimulation >= SimulationTimeStep)
                 {
                     elapsedTimeSimulation = 0f;
+                    SimulationManager.ComSyncEvent.WaitOne();
+
+                    /** Do physics calculations */
+                    Console.WriteLine("Calculating sim...");
+                    Thread.Sleep(2000);
+
+                    SimulationManager.SimSyncEvent.Set();
+                    SimulationManager.ComSyncEvent.Reset();
                 }
 
                 Thread.Sleep(500);
-                Console.WriteLine("Simulation thread run");
 
                 /** Update elapsed times */
                 float elapsedTime = TimeManager.Instance.DeltaTime;
@@ -60,8 +74,21 @@ namespace JsonMap.Simulation
 
             while (SimulationManager.SimulationShouldRun)
             {
-                Thread.Sleep(500);
-                Console.WriteLine("Communication thread run");
+                if (SimulationManager.SimulationShouldPause)
+                {
+                    Console.WriteLine("Communication pause");
+                    SimulationManager.PauseEvent.WaitOne();
+                    Console.WriteLine("Communication unpause");
+                }
+
+                SimulationManager.SimSyncEvent.WaitOne();
+
+                /** Send stuff through socket */
+                Console.WriteLine("Communication send data...");
+                Thread.Sleep(2000);
+
+                SimulationManager.ComSyncEvent.Set();
+                SimulationManager.SimSyncEvent.Reset();
             }
 
             Console.WriteLine("Communication thread stop");

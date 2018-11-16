@@ -118,5 +118,19 @@ namespace JsonMap
             btnStopSim.IsEnabled = false;
             btnLaunchSim.IsEnabled = true;
         }
+
+        private void TogglePause(object sender, RoutedEventArgs e)
+        {
+            if(SimulationManager.SimulationShouldPause)
+            {
+                SimulationManager.Unpause();
+                btnPauseSim.Content = "Pause";
+            }
+            else
+            {
+                SimulationManager.Pause();
+                btnPauseSim.Content = "Reprendre";
+            }
+        }
     }
 }

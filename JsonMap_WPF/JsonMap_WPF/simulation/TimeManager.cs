@@ -32,7 +32,7 @@ namespace JsonMap.Simulation
         public void Update()
         {
             DateTime currentTime = DateTime.Now;
-            DeltaTime = (LastTime - currentTime).Milliseconds / 1000f;
+            DeltaTime = (currentTime - LastTime).Milliseconds / 1000f;
             LastTime = currentTime;
         }
     }

@@ -40,7 +40,7 @@
 
         <GroupBox x:Name="SimulationControls" Header="Contrôles de la simulation" Margin="297,49,0,0" HorizontalAlignment="Left" Width="218" Height="109" VerticalAlignment="Top" Background="White">
             <Grid>
-                <Button x:Name="btnPauseSim" Content="Pause" Margin="10,32,10,35" IsEnabled="False" Style="{DynamicResource LightStyle}"/>
+                <Button x:Name="btnPauseSim" Content="Pause" Margin="10,32,10,35" IsEnabled="False" Style="{DynamicResource LightStyle}" Click="TogglePause"/>
                 <Button x:Name="btnStopSim" Content="Arrêter" Margin="10,57,10,10" IsEnabled="False" Click="StopSimulation" Style="{DynamicResource LightStyle}"/>
                 <Button x:Name="btnLaunchSim" Content="Lancer" Margin="10,8,10,59" IsEnabled="False" Click="LaunchSimulation" Style="{DynamicResource LightStyle}"/>
             </Grid>
