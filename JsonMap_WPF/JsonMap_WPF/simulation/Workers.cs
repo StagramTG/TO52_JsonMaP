@@ -5,6 +5,11 @@ namespace JsonMap.Simulation
 {
     public static class Workers
     {
+        /** Time between each line processing, Simulation time step isn't influenced */
+        public static float ProcessingTimeStep { get; set; }
+        /** Time between each physics recalculation of forces apply  to rigid body, Processing time step isn't influenced */
+        public static float SimulationTimeStep { get; set; }
+
         /**
          * Method that runs in simulation Thread.
          * Runs multiagents system to calculate physical behaviors
