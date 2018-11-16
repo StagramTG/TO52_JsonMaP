@@ -63,7 +63,12 @@ namespace JsonMap.Math
          *      METHODS
          * ==========================================
          */
-        
+        public void Normalize()
+        {
+            X /= Norm;
+            Y /= Norm;
+            Z /= Norm;
+        }
 
         /**
          * ==========================================
