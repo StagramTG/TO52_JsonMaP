@@ -12,7 +12,8 @@ namespace JsonMap.Agent
         public enum Behaviors
         {
             ACTIVE,
-            PASSIVE
+            PASSIVE,
+            NOT_INVOLVED
         }
 
         /** identification attributes */

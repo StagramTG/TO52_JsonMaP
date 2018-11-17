@@ -56,7 +56,25 @@ namespace JsonMap.Simulation
                     Console.WriteLine("Calculating sim...");
                     foreach(var agent in SimulationManager.AgsManager.Agents)
                     {
+                        Agent.CharacterAgent.Behaviors behavior;
 
+                        /** Actor of current action */
+                        if(currentAction.CharacterId.Contains(agent.Value.CharacterData.Id))
+                        {
+                            behavior = Agent.CharacterAgent.Behaviors.ACTIVE;
+                        }
+                        /** Target of current action */
+                        else if(currentAction.TargetId.Contains(agent.Value.CharacterData.Id))
+                        {
+                            behavior = Agent.CharacterAgent.Behaviors.PASSIVE;
+                        }
+                        /** Don't appear in current action */
+                        else
+                        {
+                            behavior = Agent.CharacterAgent.Behaviors.NOT_INVOLVED;
+                        }
+
+                        agent.Value.Update(currentAction, behavior);
                     }
 
                     SimulationManager.SimSyncEvent.Set();
