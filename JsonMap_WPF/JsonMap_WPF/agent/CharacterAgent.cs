@@ -29,30 +29,39 @@ namespace JsonMap.Agent
             Body = new RigidBody();
         }
 
-        public void Update(Data.Action action, Behaviors behavior)
+        public void Update(Data.Action paction, Behaviors pbehavior)
         {
-            switch(behavior)
+            switch(pbehavior)
             {
                 /** When character is an actor of the action */
                 case Behaviors.ACTIVE:
-                    ProcessActiveBehavior(action);
+                    ProcessActiveBehavior(paction);
                     break;
 
                 /** When character is a target in action */
                 case Behaviors.PASSIVE:
-                    ProcessPassiveBehavior(action);
+                    ProcessPassiveBehavior(paction);
+                    break;
+
+                case Behaviors.NOT_INVOLVED:
+                    ProcessNotInvolvedBehavior(paction);
                     break;
             }
         }
 
-        private void ProcessActiveBehavior(Data.Action action)
+        private void ProcessActiveBehavior(Data.Action paction)
         {
              
         }
 
-        private void ProcessPassiveBehavior(Data.Action action)
+        private void ProcessPassiveBehavior(Data.Action paction)
         {
 
+        }
+
+        private void ProcessNotInvolvedBehavior(Data.Action paction)
+        {
+            
         }
     }
 }
