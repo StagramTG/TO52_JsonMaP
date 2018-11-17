@@ -27,6 +27,7 @@ namespace JsonMap.Agent
         {
             CharacterData = pcharacter;
 
+            Weight = Simulation.SimulationConfig.WEIGHT_START;
             Body = new RigidBody();
         }
 
@@ -52,17 +53,111 @@ namespace JsonMap.Agent
 
         private void ProcessActiveBehavior(Data.Action paction)
         {
-             
+            /** Process weight */
+            ProcessWeight(Behaviors.ACTIVE, paction.Influence);
+
+            /** Process relations */
+
+            /** Process Physics */
         }
 
         private void ProcessPassiveBehavior(Data.Action paction)
         {
+            /** Process weight */
+            ProcessWeight(Behaviors.PASSIVE, paction.Influence);
 
+            /** Process relations */
+
+            /** Process Physics */
         }
 
         private void ProcessNotInvolvedBehavior(Data.Action paction)
         {
-            
+            /** Process weight */
+            ProcessWeight(Behaviors.NOT_INVOLVED, paction.Influence);
+
+            /** Process relations */
+
+            /** Process Physics */
+        }
+
+        /** 
+         * This function process the weight of the agent by taking in coonsideration the influence of the action
+         * and the bahavior (if the actor is active, passive or not involved in the action)
+         */
+        private void ProcessWeight(Behaviors pbehaviors, int pinfluence)
+        {
+            switch(pbehaviors)
+            {
+                case Behaviors.ACTIVE:
+                {
+                    if (pinfluence > 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP * 
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_ACTIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_POSITIVE_INFLUENCE;
+                    }
+                    else if (pinfluence < 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_ACTIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEGATIVE_INFLUENCE;
+                    }
+                    else
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_ACTIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEUTRAL_INFLUENCE;
+                    }
+                    break;
+                }
+
+                case Behaviors.PASSIVE:
+                {
+                    if (pinfluence > 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_PASSIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_POSITIVE_INFLUENCE;
+                    }
+                    else if (pinfluence < 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_PASSIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEGATIVE_INFLUENCE;
+                    }
+                    else
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_PASSIVE *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEUTRAL_INFLUENCE;
+                    }
+                    break;
+                }
+
+                case Behaviors.NOT_INVOLVED:
+                {
+                    if (pinfluence > 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NOT_INVOLVED *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_POSITIVE_INFLUENCE;
+                    }
+                    else if (pinfluence < 0)
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NOT_INVOLVED *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEGATIVE_INFLUENCE;
+                    }
+                    else
+                    {
+                        Weight += Simulation.SimulationConfig.WEIGHT_STEP *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NOT_INVOLVED *
+                            Simulation.SimulationConfig.WEIGHT_MULT_FACTOR_NEUTRAL_INFLUENCE;
+                    }
+                    break;
+                }
+            }
         }
     }
 }
