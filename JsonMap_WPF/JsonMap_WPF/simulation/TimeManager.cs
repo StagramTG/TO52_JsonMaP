@@ -20,7 +20,9 @@ namespace JsonMap.Simulation
             }
         }
 
+        /** Last register time */
         public DateTime LastTime { get; private set; }
+        /** Elapsed time since last Update in seconds */
         public float DeltaTime { get; private set; } 
 
         private TimeManager()

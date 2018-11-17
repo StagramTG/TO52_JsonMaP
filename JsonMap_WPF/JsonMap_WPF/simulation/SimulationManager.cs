@@ -19,6 +19,7 @@ namespace JsonMap.Simulation
         /** Simulation global stuffs */
         public static bool SimulationShouldRun         { get; set; } = false;
         public static bool SimulationShouldPause       { get; set; } = false;
+        public static int CurrentActionIndex           { get; set; } = 0;
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }

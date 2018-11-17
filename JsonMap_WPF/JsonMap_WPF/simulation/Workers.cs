@@ -6,7 +6,7 @@ namespace JsonMap.Simulation
     public static class Workers
     {
         /** Time between each line processing, Simulation time step isn't influenced */
-        public static float ProcessingTimeStep { get; set; }
+        public static float ProcessingTimeStep { get; set; } = 2;
         /** Time between each physics recalculation of forces apply  to rigid body, Processing time step isn't influenced */
         public static float SimulationTimeStep { get; set; }
 
@@ -19,12 +19,16 @@ namespace JsonMap.Simulation
         {
             float elapsedTimeProcessing = 0f;
             float elapsedTimeSimulation = 0f;
+            Data.Action currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
+            SimulationManager.CurrentActionIndex++;
 
             Console.WriteLine("Simulation thread start");
 
             TimeManager.Instance.Update();
+
             while(SimulationManager.SimulationShouldRun)
             {
+                /** Check if simulation is in pause state */
                 if(SimulationManager.SimulationShouldPause)
                 {
                     Console.WriteLine("Simulation pause");
@@ -36,6 +40,10 @@ namespace JsonMap.Simulation
                 if(elapsedTimeProcessing >= ProcessingTimeStep)
                 {
                     elapsedTimeProcessing = 0f;
+
+                    /** Set next action as current action */
+                    currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
+                    SimulationManager.CurrentActionIndex++;
                 }
 
                 /** Process physic simulation for current line */
