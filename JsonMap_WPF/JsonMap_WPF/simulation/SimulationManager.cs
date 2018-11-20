@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -23,7 +24,7 @@ namespace JsonMap.Simulation
         /** Communication related */
         public static String HostAdress                { get; set; } = "127.0.0.1";
         public static String HostPort                  { get; set; } = "6666";
-        public static Socket ComSocket                 { get; set; }
+        public static TcpClient ComSocket              { get; set; }
 
         /** Worker Threads instance */
         private static Thread SimulationThread;
@@ -35,10 +36,33 @@ namespace JsonMap.Simulation
         /// <summary>
         /// Launch the simulation by starting Workers thread
         /// </summary>
-        public static void Launch()
+        public static bool Launch()
         {
             SimulationThread = new Thread(Workers.SimulationWorker);
             CommunicationThread = new Thread(Workers.CommunicationWorker);
+
+            /** Init communication/connection stuff */
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(HostAdress), int.Parse(HostPort));
+            ComSocket = new TcpClient();
+            try
+            {
+                ComSocket.Connect(endPoint);
+
+                if (!ComSocket.Connected)
+                {
+                    return false;
+                }
+                else
+                {
+                    Byte[] bytes = System.Text.Encoding.ASCII.GetBytes("Connecting successfully");
+                    ComSocket.GetStream().Write(bytes, 0, bytes.Length);
+                    ComSocket.GetStream().Flush();
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
 
             /** Init stuff to manage threads and time */
             timeManager = TimeManager.Instance;
@@ -52,6 +76,8 @@ namespace JsonMap.Simulation
 
             SimulationThread.Start();
             CommunicationThread.Start();
+
+            return true;
         }
 
         /// <summary>

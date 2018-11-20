@@ -13,8 +13,8 @@ namespace JsonMap.Data
         public const int INFLUENCE_NEGATIVE = -1;
 
         public uint Line { get; set; }
-        public List<int> CharacterId { get; set; }
-        public List<int> TargetId { get; set; }
+        public List<int> CharactersId { get; set; }
+        public List<int> TargetsId { get; set; }
         public int Influence { get; set; }
     }
 }

@@ -59,12 +59,12 @@ namespace JsonMap.Simulation
                         Agent.CharacterAgent.Behaviors behavior;
 
                         /** Actor of current action */
-                        if(currentAction.CharacterId.Contains(agent.Value.CharacterData.Id))
+                        if(currentAction.CharactersId.Contains(agent.Value.CharacterData.Id))
                         {
                             behavior = Agent.CharacterAgent.Behaviors.ACTIVE;
                         }
                         /** Target of current action */
-                        else if(currentAction.TargetId.Contains(agent.Value.CharacterData.Id))
+                        else if(currentAction.TargetsId.Contains(agent.Value.CharacterData.Id))
                         {
                             behavior = Agent.CharacterAgent.Behaviors.PASSIVE;
                         }
@@ -114,12 +114,13 @@ namespace JsonMap.Simulation
 
                 /** Send stuff through socket */
                 Console.WriteLine("Communication send data...");
-                Thread.Sleep(2000);
+                Thread.Sleep(500);
 
                 SimulationManager.ComSyncEvent.Set();
                 SimulationManager.SimSyncEvent.Reset();
             }
 
+            SimulationManager.ComSocket.Close();
             Console.WriteLine("Communication thread stop");
         }
     }

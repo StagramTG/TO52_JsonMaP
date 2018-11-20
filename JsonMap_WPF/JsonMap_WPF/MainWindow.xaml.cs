@@ -89,22 +89,19 @@ namespace JsonMap
          */
         private void LaunchSimulation(object sender, RoutedEventArgs e)
         {
-            /** Test connection to renderer application through Socket */
-            bool connectivityTest = true;
-
+            SimulationManager.SimulationShouldRun = true;
+            
             /** Launch worker threads */
-            if(connectivityTest)
+            if (SimulationManager.Launch())
             {
-                SimulationManager.SimulationShouldRun = true;
-
-                SimulationManager.Launch();
-
                 btnPauseSim.IsEnabled = true;
                 btnStopSim.IsEnabled = true;
                 btnLaunchSim.IsEnabled = false;
             }
             else
             {
+                SimulationManager.SimulationShouldRun = false;
+
                 MessageBox.Show($"La connection à l'adresse {SimulationManager.HostAdress}:" +
                     $"{SimulationManager.HostPort} à échouée.");
             }
