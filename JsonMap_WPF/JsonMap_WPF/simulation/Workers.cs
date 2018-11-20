@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace JsonMap.Simulation
@@ -90,6 +91,8 @@ namespace JsonMap.Simulation
                 TimeManager.Instance.Update();
             }
 
+            SimulationManager.SimSyncEvent.Set();
+
             Console.WriteLine("Simulation thread stop");
         }
 
@@ -114,7 +117,9 @@ namespace JsonMap.Simulation
 
                 /** Send stuff through socket */
                 Console.WriteLine("Communication send data...");
-                Thread.Sleep(500);
+                NetworkStream stream = SimulationManager.ComSocket.GetStream();
+                byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
+                stream.Write(toSend, 0, toSend.Length);
 
                 SimulationManager.ComSyncEvent.Set();
                 SimulationManager.SimSyncEvent.Reset();

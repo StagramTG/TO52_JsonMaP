@@ -56,7 +56,6 @@ namespace JsonMap.Simulation
                 {
                     Byte[] bytes = System.Text.Encoding.ASCII.GetBytes("Connecting successfully");
                     ComSocket.GetStream().Write(bytes, 0, bytes.Length);
-                    ComSocket.GetStream().Flush();
                 }
             }
             catch(Exception e)
