@@ -117,9 +117,10 @@ namespace JsonMap.Simulation
 
                 /** Send stuff through socket */
                 Console.WriteLine("Communication send data...");
-                NetworkStream stream = SimulationManager.ComSocket.GetStream();
-                byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
-                stream.Write(toSend, 0, toSend.Length);
+
+                // NetworkStream stream = SimulationManager.ComSocket.GetStream();
+                // byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
+                // stream.Write(toSend, 0, toSend.Length);
 
                 SimulationManager.ComSyncEvent.Set();
                 SimulationManager.SimSyncEvent.Reset();
