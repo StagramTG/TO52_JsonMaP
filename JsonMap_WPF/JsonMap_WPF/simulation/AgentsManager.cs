@@ -28,5 +28,18 @@ namespace JsonMap.Simulation
 
             return true;
         }
+
+        /** Return a list of CharacterAgent convert in CharacterAgentData */
+        public List<CharacterAgentData> GetCharacterAgentsData()
+        {
+            List<CharacterAgentData> data = new List<CharacterAgentData>();
+            
+            foreach(var agent in Agents)
+            {
+                data.Add(agent.Value.ToCharacterAgentData());
+            }
+
+            return data;
+        }
     }
 }
