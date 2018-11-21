@@ -22,6 +22,7 @@ namespace JsonMap.Simulation
             foreach(Character character in pepisode.Characters)
             {
                 CharacterAgent ca = new CharacterAgent(character);
+                ca.Weight = (float)(character.Occ * 100f) / (float)pepisode.LinesCount;
                 Agents.Add(character.Name, ca);
             }
 

@@ -20,7 +20,7 @@ namespace JsonMap.Agent
         public Character CharacterData { get; private set; }
 
         /** Physical attributes */
-        public float Weight   { get; private set; }
+        public float Weight   { get; set; }
         public RigidBody Body { get; private set; }
 
         public CharacterAgent(Character pcharacter)
