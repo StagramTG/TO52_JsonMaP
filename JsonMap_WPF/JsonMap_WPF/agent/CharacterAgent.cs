@@ -51,6 +51,18 @@ namespace JsonMap.Agent
             }
         }
 
+        /** Convert current Agent's attributes to CharacterAgentData (Serializable) */
+        public CharacterAgentData ToCharacterAgentData()
+        {
+            CharacterAgentData data = new CharacterAgentData();
+            data.Id = CharacterData.Id;
+            data.Name = CharacterData.Name;
+            data.Position = Body.Position;
+            data.Weight = Weight;
+
+            return data;
+        }
+
         private void ProcessActiveBehavior(Data.Action paction)
         {
             /** Process relations */
