@@ -68,7 +68,7 @@ namespace JsonMap.Simulation
                 }
                 else
                 {
-                    Byte[] bytes = System.Text.Encoding.ASCII.GetBytes("Connecting successfully");
+                    Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(Messages.HelloMessage);
                     ComSocket.GetStream().Write(bytes, 0, bytes.Length);
                 }
             }
@@ -136,7 +136,7 @@ namespace JsonMap.Simulation
             SimulationThread.Join();
             CommunicationThread.Join();
 
-            ComSocket.GetStream().Write(System.Text.Encoding.ASCII.GetBytes("Close connection"), 0, 16);
+            ComSocket.GetStream().Write(System.Text.Encoding.ASCII.GetBytes(Messages.EndMessage), 0, Messages.EndMessage.Length);
             ComSocket.Close();
         }
     }
