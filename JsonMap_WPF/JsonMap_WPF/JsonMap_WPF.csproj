@@ -63,6 +63,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="agent\CharacterAgent.cs" />
+    <Compile Include="data\CharacterAgentData.cs" />
+    <Compile Include="data\MessageData.cs" />
     <Compile Include="gui\CommunicationSettingsDialog.xaml.cs">
       <DependentUpon>CommunicationSettingsDialog.xaml</DependentUpon>
     </Compile>

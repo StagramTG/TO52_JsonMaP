@@ -55,11 +55,6 @@ namespace JsonMap.Simulation
         /// </summary>
         public static bool Launch()
         {
-            string test = Messages.HelloMessage;
-
-            SimulationThread = new Thread(Workers.SimulationWorker);
-            CommunicationThread = new Thread(Workers.CommunicationWorker);
-
             /** Init communication/connection stuff */
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(HostAdress), int.Parse(HostPort));
             ComSocket = new TcpClient();
@@ -92,6 +87,11 @@ namespace JsonMap.Simulation
             AgsManager = new AgentsManager();
             AgsManager.Setup(CurrentEpisode);
 
+            /** Send character to render app in order to setup gameobjects */
+
+            /** Launch worker threads */
+            SimulationThread = new Thread(Workers.SimulationWorker);
+            CommunicationThread = new Thread(Workers.CommunicationWorker);
             SimulationThread.Start();
             CommunicationThread.Start();
 
