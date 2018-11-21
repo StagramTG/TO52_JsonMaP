@@ -15,7 +15,21 @@ namespace JsonMap.Simulation
         /** Simulation global stuffs */
         public static bool SimulationShouldRun         { get; set; } = false;
         public static bool SimulationShouldPause       { get; set; } = false;
-        public static int CurrentActionIndex           { get; set; } = 0;
+
+        private static int currentActionLine = 0;
+        public static int CurrentActionIndex
+        {
+            get { return currentActionLine; }
+            set
+            {
+                if(currentActionLine != value)
+                {
+                    currentActionLine = value;
+                    CurrentProcessedLineChange(null, null);
+                }
+            }
+        }
+
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }
@@ -32,6 +46,9 @@ namespace JsonMap.Simulation
 
         /** Time manager */
         private static TimeManager timeManager;
+
+        /** Events handler */
+        public static event EventHandler CurrentProcessedLineChange;
 
         /// <summary>
         /// Launch the simulation by starting Workers thread
