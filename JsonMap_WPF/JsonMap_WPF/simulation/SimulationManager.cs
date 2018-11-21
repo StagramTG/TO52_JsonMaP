@@ -55,6 +55,8 @@ namespace JsonMap.Simulation
         /// </summary>
         public static bool Launch()
         {
+            string test = Messages.HelloMessage;
+
             SimulationThread = new Thread(Workers.SimulationWorker);
             CommunicationThread = new Thread(Workers.CommunicationWorker);
 
@@ -122,9 +124,14 @@ namespace JsonMap.Simulation
             /** Stop simulation and wait worker thread to join */
             SimulationShouldRun = false;
 
+            /** Unblock sync between threads */
+            SimSyncEvent.Set();
+            ComSyncEvent.Set();
+
             SimulationThread.Join();
             CommunicationThread.Join();
 
+            ComSocket.GetStream().Write(System.Text.Encoding.ASCII.GetBytes("Close connection"), 0, 16);
             ComSocket.Close();
         }
     }

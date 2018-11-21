@@ -121,6 +121,10 @@ namespace JsonMap
         {
             SimulationManager.Stop();
 
+            /** Reset progress bar */
+            SimulationProgressBar.Value = 0;
+
+            /** Reste buttons states */
             btnPauseSim.IsEnabled = false;
             btnStopSim.IsEnabled = false;
             btnLaunchSim.IsEnabled = true;

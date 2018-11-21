@@ -70,6 +70,7 @@
     <Compile Include="math\RigidBody.cs" />
     <Compile Include="math\Vector3.cs" />
     <Compile Include="simulation\AgentsManager.cs" />
+    <Compile Include="simulation\Messages.cs" />
     <Compile Include="simulation\SimulationConfig.cs" />
     <Compile Include="simulation\SimulationManager.cs" />
     <Compile Include="simulation\TimeManager.cs" />

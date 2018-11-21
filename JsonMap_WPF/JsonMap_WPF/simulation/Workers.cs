@@ -50,39 +50,40 @@ namespace JsonMap.Simulation
                 /** Process physic simulation for current line */
                 if(elapsedTimeSimulation >= SimulationTimeStep)
                 {
-                    elapsedTimeSimulation = 0f;
                     SimulationManager.ComSyncEvent.WaitOne();
 
-                    /** Do physics calculations */
-                    Console.WriteLine("Calculating sim...");
-                    foreach(var agent in SimulationManager.AgsManager.Agents)
+                    if(SimulationManager.SimulationShouldRun)
                     {
-                        Agent.CharacterAgent.Behaviors behavior;
+                        /** Do physics calculations */
+                        Console.WriteLine("Calculating sim...");
+                        foreach (var agent in SimulationManager.AgsManager.Agents)
+                        {
+                            Agent.CharacterAgent.Behaviors behavior;
 
-                        /** Actor of current action */
-                        if(currentAction.CharactersId.Contains(agent.Value.CharacterData.Id))
-                        {
-                            behavior = Agent.CharacterAgent.Behaviors.ACTIVE;
-                        }
-                        /** Target of current action */
-                        else if(currentAction.TargetsId.Contains(agent.Value.CharacterData.Id))
-                        {
-                            behavior = Agent.CharacterAgent.Behaviors.PASSIVE;
-                        }
-                        /** Don't appear in current action */
-                        else
-                        {
-                            behavior = Agent.CharacterAgent.Behaviors.NOT_INVOLVED;
+                            /** Actor of current action */
+                            if (currentAction.CharactersId.Contains(agent.Value.CharacterData.Id))
+                            {
+                                behavior = Agent.CharacterAgent.Behaviors.ACTIVE;
+                            }
+                            /** Target of current action */
+                            else if (currentAction.TargetsId.Contains(agent.Value.CharacterData.Id))
+                            {
+                                behavior = Agent.CharacterAgent.Behaviors.PASSIVE;
+                            }
+                            /** Don't appear in current action */
+                            else
+                            {
+                                behavior = Agent.CharacterAgent.Behaviors.NOT_INVOLVED;
+                            }
+
+                            agent.Value.Update(currentAction, behavior);
                         }
 
-                        agent.Value.Update(currentAction, behavior);
+                        SimulationManager.SimSyncEvent.Set();
+                        SimulationManager.ComSyncEvent.Reset();
+                        elapsedTimeSimulation = 0f;
                     }
-
-                    SimulationManager.SimSyncEvent.Set();
-                    SimulationManager.ComSyncEvent.Reset();
                 }
-
-                Thread.Sleep(500);
 
                 /** Update elapsed times */
                 float elapsedTime = TimeManager.Instance.DeltaTime;
@@ -107,29 +108,26 @@ namespace JsonMap.Simulation
 
             while (SimulationManager.SimulationShouldRun)
             {
-                if (SimulationManager.SimulationShouldPause)
-                {
-                    Console.WriteLine("Communication pause");
-                    SimulationManager.PauseEvent.WaitOne();
-                    Console.WriteLine("Communication unpause");
-                }
-
                 if(totalElapsedTime >= SimulationTimeStep)
                 {
                     SimulationManager.SimSyncEvent.WaitOne();
 
-                    /** Send stuff through socket */
-                    Console.WriteLine("Communication send data...");
+                    if(SimulationManager.SimulationShouldRun)
+                    {
+                        /** Send stuff through socket */
+                        Console.WriteLine("Communication send data...");
 
-                    NetworkStream stream = SimulationManager.ComSocket.GetStream();
-                    byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
-                    stream.Write(toSend, 0, toSend.Length);
+                        NetworkStream stream = SimulationManager.ComSocket.GetStream();
+                        byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
+                        stream.Write(toSend, 0, toSend.Length);
 
-                    SimulationManager.ComSyncEvent.Set();
-                    SimulationManager.SimSyncEvent.Reset();
-                    totalElapsedTime = 0;
+                        SimulationManager.ComSyncEvent.Set();
+                        SimulationManager.SimSyncEvent.Reset();
+                        totalElapsedTime = 0;
+                    }
                 }
 
+                /** Manage time */
                 totalElapsedTime += TimeManager.Instance.DeltaTime;
             }
             
