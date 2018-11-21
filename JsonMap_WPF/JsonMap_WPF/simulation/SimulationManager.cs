@@ -88,6 +88,11 @@ namespace JsonMap.Simulation
             AgsManager.Setup(CurrentEpisode);
 
             /** Send character to render app in order to setup gameobjects */
+            string characterInitMessage = Messages.CreateCharacterAgentInitMessage(AgsManager.GetCharacterAgentsData());
+            byte[] tosend = System.Text.Encoding.ASCII.GetBytes(characterInitMessage);
+            ComSocket.GetStream().Write(tosend, 0, tosend.Length);
+
+            /** Wait for response in order to check for possible problems */
 
             /** Launch worker threads */
             SimulationThread = new Thread(Workers.SimulationWorker);
