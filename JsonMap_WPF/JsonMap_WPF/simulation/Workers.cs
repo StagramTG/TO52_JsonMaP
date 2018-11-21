@@ -103,6 +103,7 @@ namespace JsonMap.Simulation
         public static void CommunicationWorker()
         {
             Console.WriteLine("Communication thread start");
+            float totalElapsedTime = 0;
 
             while (SimulationManager.SimulationShouldRun)
             {
@@ -113,17 +114,23 @@ namespace JsonMap.Simulation
                     Console.WriteLine("Communication unpause");
                 }
 
-                SimulationManager.SimSyncEvent.WaitOne();
+                if(totalElapsedTime >= SimulationTimeStep)
+                {
+                    SimulationManager.SimSyncEvent.WaitOne();
 
-                /** Send stuff through socket */
-                Console.WriteLine("Communication send data...");
+                    /** Send stuff through socket */
+                    Console.WriteLine("Communication send data...");
 
-                // NetworkStream stream = SimulationManager.ComSocket.GetStream();
-                // byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
-                // stream.Write(toSend, 0, toSend.Length);
+                    NetworkStream stream = SimulationManager.ComSocket.GetStream();
+                    byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
+                    stream.Write(toSend, 0, toSend.Length);
 
-                SimulationManager.ComSyncEvent.Set();
-                SimulationManager.SimSyncEvent.Reset();
+                    SimulationManager.ComSyncEvent.Set();
+                    SimulationManager.SimSyncEvent.Reset();
+                    totalElapsedTime = 0;
+                }
+
+                totalElapsedTime += TimeManager.Instance.DeltaTime;
             }
             
             Console.WriteLine("Communication thread stop");

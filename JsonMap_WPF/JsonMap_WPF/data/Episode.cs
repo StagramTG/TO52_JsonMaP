@@ -8,7 +8,7 @@ namespace JsonMap.Data
     public class Episode
     {
         public string Title { get; set; }
-        public uint LinesCount { get; set; }
+        public int LinesCount { get; set; }
 
         public List<Character> Characters { get; set; }
         public List<Action> Actions { get; set; }

@@ -48,7 +48,7 @@
 
         <GroupBox x:Name="SimulationProgress" Header="Progression" Margin="520,49,0,0" HorizontalAlignment="Left" Width="262" Height="109" VerticalAlignment="Top" Background="White">
             <Grid>
-                <ProgressBar Margin="0,31,0,31"/>
+                <ProgressBar x:Name="SimulationProgressBar" Minimum="0" Maximum="100" Margin="0,31,0,31"/>
             </Grid>
         </GroupBox>
     </Grid>
