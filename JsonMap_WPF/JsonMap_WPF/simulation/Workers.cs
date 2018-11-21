@@ -7,9 +7,9 @@ namespace JsonMap.Simulation
     public static class Workers
     {
         /** Time between each line processing, Simulation time step isn't influenced */
-        public static float ProcessingTimeStep { get; set; } = 2;
+        public static float ProcessingTimeStep { get; set; } = 2f;
         /** Time between each physics recalculation of forces apply  to rigid body, Processing time step isn't influenced */
-        public static float SimulationTimeStep { get; set; }
+        public static float SimulationTimeStep { get; set; } = 1f / 60f;
 
         /**
          * Method that runs in simulation Thread.
@@ -124,8 +124,7 @@ namespace JsonMap.Simulation
                 SimulationManager.ComSyncEvent.Set();
                 SimulationManager.SimSyncEvent.Reset();
             }
-
-            SimulationManager.ComSocket.Close();
+            
             Console.WriteLine("Communication thread stop");
         }
     }

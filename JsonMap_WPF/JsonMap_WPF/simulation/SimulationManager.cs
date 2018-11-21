@@ -107,6 +107,8 @@ namespace JsonMap.Simulation
 
             SimulationThread.Join();
             CommunicationThread.Join();
+
+            ComSocket.Close();
         }
     }
 }
