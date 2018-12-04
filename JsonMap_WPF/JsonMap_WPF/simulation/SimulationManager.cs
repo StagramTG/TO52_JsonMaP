@@ -68,8 +68,17 @@ namespace JsonMap.Simulation
                 }
                 else
                 {
+                    /** Send begin message */
                     Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(Messages.HelloMessage);
                     ComSocket.GetStream().Write(bytes, 0, bytes.Length);
+
+                    /** Wait for response */
+                    ComSocket.GetStream().ReadTimeout = 1000;
+                    int retinit = ComSocket.GetStream().ReadByte();
+                    if (retinit != 49)
+                    {
+                        return false;
+                    }
                 }
             }
             catch(Exception e)
@@ -94,6 +103,12 @@ namespace JsonMap.Simulation
             ComSocket.GetStream().Write(tosend, 0, tosend.Length);
 
             /** Wait for response in order to check for possible problems */
+            ComSocket.GetStream().ReadTimeout = 5000;
+            int ret = ComSocket.GetStream().ReadByte();
+            if(ret != 49)
+            {
+                return false;
+            }
 
             /** Launch worker threads */
             SimulationThread = new Thread(Workers.SimulationWorker);
