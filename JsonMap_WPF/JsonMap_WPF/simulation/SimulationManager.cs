@@ -74,6 +74,7 @@ namespace JsonMap.Simulation
             }
             catch(Exception e)
             {
+                Console.WriteLine(e.Message, ConsoleColor.Red);
                 return false;
             }
 
