@@ -157,7 +157,8 @@ namespace JsonMap.Simulation
             SimulationThread.Join();
             CommunicationThread.Join();
 
-            ComSocket.GetStream().Write(System.Text.Encoding.ASCII.GetBytes(Messages.EndMessage), 0, Messages.EndMessage.Length);
+            Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(Messages.EndMessage);
+            ComSocket.GetStream().Write(bytes, 0, bytes.Length);
             ComSocket.Close();
         }
     }

@@ -41,5 +41,10 @@ namespace JsonMap.Simulation
 
             return data;
         }
+
+        public void UpdateRelations()
+        {
+
+        }
     }
 }

@@ -118,7 +118,9 @@ namespace JsonMap.Simulation
                         Console.WriteLine("Communication send data...");
 
                         NetworkStream stream = SimulationManager.ComSocket.GetStream();
-                        byte[] toSend = System.Text.Encoding.ASCII.GetBytes("Update communication thread !");
+                        byte[] toSend = System.Text.Encoding.ASCII.GetBytes(
+                            Messages.CreateCharacterAgentMessage(SimulationManager.AgsManager.GetCharacterAgentsData())
+                        );
                         stream.Write(toSend, 0, toSend.Length);
 
                         SimulationManager.ComSyncEvent.Set();
