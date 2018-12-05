@@ -100,20 +100,27 @@ namespace JsonMap
         private void LaunchSimulation(object sender, RoutedEventArgs e)
         {
             SimulationManager.SimulationShouldRun = true;
-            
+
             /** Launch worker threads */
-            if (SimulationManager.Launch())
+            int ret = SimulationManager.Launch();
+            if (ret == SimulationManager.LAUNCH_SUCCESS)
             {
                 btnPauseSim.IsEnabled = true;
                 btnStopSim.IsEnabled = true;
                 btnLaunchSim.IsEnabled = false;
             }
-            else
+            else if(ret == SimulationManager.LAUNCH_ERROR_CONNEXION)
             {
                 SimulationManager.SimulationShouldRun = false;
 
                 MessageBox.Show($"La connection à l'adresse {SimulationManager.HostAdress}:" +
                     $"{SimulationManager.HostPort} à échouée.");
+            }
+            else if (ret == SimulationManager.LAUNCH_ERROR_INIT)
+            {
+                SimulationManager.SimulationShouldRun = false;
+
+                MessageBox.Show("L'application de rendu n'a pas réussi à initialiser les personnages.");
             }
         }
 

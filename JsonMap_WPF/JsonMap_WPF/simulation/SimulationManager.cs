@@ -9,6 +9,11 @@ namespace JsonMap.Simulation
 {
     public static class SimulationManager
     {
+        /** Return codes for simulation launch */
+        public const int LAUNCH_SUCCESS = 1;
+        public const int LAUNCH_ERROR_CONNEXION = -1;
+        public const int LAUNCH_ERROR_INIT = -2;
+
         /** Episode related */
         public static Episode CurrentEpisode           { get; set; }
 
@@ -53,7 +58,7 @@ namespace JsonMap.Simulation
         /// <summary>
         /// Launch the simulation by starting Workers thread
         /// </summary>
-        public static bool Launch()
+        public static int Launch()
         {
             /** Init communication/connection stuff */
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(HostAdress), int.Parse(HostPort));
@@ -64,7 +69,7 @@ namespace JsonMap.Simulation
 
                 if (!ComSocket.Connected)
                 {
-                    return false;
+                    return LAUNCH_ERROR_CONNEXION;
                 }
                 else
                 {
@@ -77,14 +82,14 @@ namespace JsonMap.Simulation
                     int retinit = ComSocket.GetStream().ReadByte();
                     if (retinit != 49)
                     {
-                        return false;
+                        return LAUNCH_ERROR_CONNEXION;
                     }
                 }
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message, ConsoleColor.Red);
-                return false;
+                return LAUNCH_ERROR_CONNEXION;
             }
 
             /** Init stuff to manage threads and time */
@@ -107,7 +112,7 @@ namespace JsonMap.Simulation
             int ret = ComSocket.GetStream().ReadByte();
             if(ret != 49)
             {
-                return false;
+                return LAUNCH_ERROR_INIT;
             }
 
             /** Launch worker threads */
@@ -116,7 +121,7 @@ namespace JsonMap.Simulation
             SimulationThread.Start();
             CommunicationThread.Start();
 
-            return true;
+            return LAUNCH_SUCCESS;
         }
 
         /// <summary>
