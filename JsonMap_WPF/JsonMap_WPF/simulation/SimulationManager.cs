@@ -38,7 +38,7 @@ namespace JsonMap.Simulation
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }
-        public static AgentsManager AgsManager      { get; private set; }
+        public static AgentsManager AgsManager         { get; private set; }
 
         /** Communication related */
         public static String HostAdress                { get; set; } = "127.0.0.1";
