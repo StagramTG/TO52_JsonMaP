@@ -6,12 +6,12 @@ using JsonMap.Agent;
 
 namespace JsonMap.Simulation
 {
-    public class AgentsManager
+    public class Environment
     {
         public Dictionary<string, CharacterAgent> Agents { get; private set; }
         public int Count => Agents.Count;
 
-        public AgentsManager()
+        public Environment()
         {
             Agents = new Dictionary<string, CharacterAgent>();
         }
@@ -25,6 +25,8 @@ namespace JsonMap.Simulation
                 ca.Weight = (float)(character.Occ * 100f) / (float)pepisode.LinesCount;
                 Agents.Add(character.Name, ca);
             }
+
+            // Create relations
 
             return true;
         }

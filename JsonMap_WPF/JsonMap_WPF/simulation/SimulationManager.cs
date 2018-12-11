@@ -38,7 +38,7 @@ namespace JsonMap.Simulation
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }
-        public static AgentsManager AgsManager         { get; private set; }
+        public static Environment environment         { get; private set; }
 
         /** Communication related */
         public static String HostAdress                { get; set; } = "127.0.0.1";
@@ -99,11 +99,11 @@ namespace JsonMap.Simulation
             ComSyncEvent = new ManualResetEvent(true);
 
             /** Init agents stuff */
-            AgsManager = new AgentsManager();
-            AgsManager.Setup(CurrentEpisode);
+            environment = new Environment();
+            environment.Setup(CurrentEpisode);
 
             /** Send character to render app in order to setup gameobjects */
-            string characterInitMessage = Messages.CreateCharacterAgentInitMessage(AgsManager.GetCharacterAgentsData());
+            string characterInitMessage = Messages.CreateCharacterAgentInitMessage(environment.GetCharacterAgentsData());
             byte[] tosend = System.Text.Encoding.ASCII.GetBytes(characterInitMessage);
             ComSocket.GetStream().Write(tosend, 0, tosend.Length);
 

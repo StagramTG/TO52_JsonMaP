@@ -56,7 +56,7 @@ namespace JsonMap.Simulation
                     {
                         /** Do physics calculations */
                         Console.WriteLine("Calculating sim...");
-                        foreach (var agent in SimulationManager.AgsManager.Agents)
+                        foreach (var agent in SimulationManager.environment.Agents)
                         {
                             Agent.CharacterAgent.Behaviors behavior;
 
@@ -119,7 +119,7 @@ namespace JsonMap.Simulation
 
                         NetworkStream stream = SimulationManager.ComSocket.GetStream();
                         byte[] toSend = System.Text.Encoding.ASCII.GetBytes(
-                            Messages.CreateCharacterAgentMessage(SimulationManager.AgsManager.GetCharacterAgentsData())
+                            Messages.CreateCharacterAgentMessage(SimulationManager.environment.GetCharacterAgentsData())
                         );
                         stream.Write(toSend, 0, toSend.Length);
 
