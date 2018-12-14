@@ -3,10 +3,18 @@ using System.Collections.Generic;
 
 using JsonMap.Agent;
 
-namespace JsonMap.simulation
+namespace JsonMap.Simulation
 {
     public class Relation
     {
+        /** Constants for nature */
+        public const float NATURE_NEUTRAL  = 0;
+        public const float NATURE_POSITIVE = 1;
+        public const float NATURE_NEGATIVE = -1;
+
+        /** Strengh constants */
+        public const float STRENGH_MAX = 5;
+
         private Tuple<CharacterAgent, CharacterAgent> involvedAgents;
         private float strengh;
         private float nature;

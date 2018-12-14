@@ -14,7 +14,7 @@ namespace JsonMap.Math
          *      PROPERTIES
          * ==========================================
          */
-        public Vector3 Position         { get; private set; }
+        public Vector3 Position         { get; set; }
         public Vector3 Velocity         { get; private set; }
         public float FrictionFactor     { get; private set; }
         public float Speed              => Velocity.Norm;

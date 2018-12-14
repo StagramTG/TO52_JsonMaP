@@ -61,12 +61,12 @@ namespace JsonMap.Simulation
                             Agent.CharacterAgent.Behaviors behavior;
 
                             /** Actor of current action */
-                            if (currentAction.CharactersId.Contains(agent.Value.CharacterData.Id))
+                            if (currentAction.CharactersId.Contains(agent.CharacterData.Id))
                             {
                                 behavior = Agent.CharacterAgent.Behaviors.ACTIVE;
                             }
                             /** Target of current action */
-                            else if (currentAction.TargetsId.Contains(agent.Value.CharacterData.Id))
+                            else if (currentAction.TargetsId.Contains(agent.CharacterData.Id))
                             {
                                 behavior = Agent.CharacterAgent.Behaviors.PASSIVE;
                             }
@@ -76,7 +76,7 @@ namespace JsonMap.Simulation
                                 behavior = Agent.CharacterAgent.Behaviors.NOT_INVOLVED;
                             }
 
-                            agent.Value.Update(currentAction, behavior);
+                            agent.Update(currentAction, behavior);
                         }
 
                         SimulationManager.SimSyncEvent.Set();
