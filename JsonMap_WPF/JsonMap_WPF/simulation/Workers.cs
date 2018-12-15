@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace JsonMap.Simulation
 {
@@ -152,6 +152,27 @@ namespace JsonMap.Simulation
         {
             // Get current action
             Data.Action currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
+            Environment env = SimulationManager.environment;
+
+            // Foreach active agent
+            for(int i = 0; i < currentAction.CharactersId.Count; ++i)
+            {
+                // Process active agents
+                for(int acti = i + 1; acti < currentAction.CharactersId.Count - 1; ++ acti)
+                {
+                    // Get or create the relation
+                    Relation relation = env.GetOrCreateRelation(env.Agents[i], env.Agents[acti]);
+
+                    // Apply action influence on it
+                    
+                }
+
+                // Process passive agents
+                for(int pasi = 0; pasi < currentAction.TargetsId.Count; ++pasi)
+                {
+
+                }
+            }
         }
     }
 }

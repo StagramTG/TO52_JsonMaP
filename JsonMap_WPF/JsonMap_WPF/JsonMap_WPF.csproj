@@ -65,6 +65,7 @@
     <Compile Include="agent\CharacterAgent.cs" />
     <Compile Include="data\CharacterAgentData.cs" />
     <Compile Include="data\MessageData.cs" />
+    <Compile Include="data\RealtionData.cs" />
     <Compile Include="gui\CommunicationSettingsDialog.xaml.cs">
       <DependentUpon>CommunicationSettingsDialog.xaml</DependentUpon>
     </Compile>
