@@ -9,13 +9,13 @@ namespace JsonMap.Simulation
     public class Environment
     {
         public List<CharacterAgent> Agents { get; private set; }
-        public Dictionary<Tuple<string, string>, Relation> Relations { get; private set; }
+        public List<Relation> Relations { get; private set; }
         public int Count => Agents.Count;
 
         public Environment()
         {
             Agents = new List<CharacterAgent>();
-            Relations = new Dictionary<Tuple<string, string>, Relation>();
+            Relations = new List<Relation>();
         }
 
         public bool Setup(Episode pepisode)
@@ -34,9 +34,6 @@ namespace JsonMap.Simulation
             // Create relations for each possible agents couple
             for(int mainIndex = 0; mainIndex < (Agents.Count - 1); ++mainIndex)
             {
-                Console.WriteLine("Relations of: " + Agents[mainIndex].CharacterData.Name);
-                Console.WriteLine("======================================================");
-
                 for (int index = mainIndex+1; index < Agents.Count; ++index)
                 {
                     if (Agents[index].CharacterData.Name != Agents[mainIndex].CharacterData.Name)
@@ -44,11 +41,9 @@ namespace JsonMap.Simulation
                         Relation r = new Relation(Agents[mainIndex], Agents[index]);
                         Tuple<string, string> k = new Tuple<string, string>(Agents[mainIndex].CharacterData.Name, Agents[index].CharacterData.Name);
 
-                        Relations.Add(k, r);
+                        Relations.Add(r);
                     }
                 }
-
-                Console.WriteLine("======================================================");
             }
 
             return true;
