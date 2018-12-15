@@ -47,7 +47,7 @@ namespace JsonMap.Simulation
                     SimulationManager.CurrentActionIndex++;
 
                     /** Update relations */
-
+                    ProcessRelations();
                 }
 
                 /** Process physic simulation for current line */
@@ -137,6 +137,21 @@ namespace JsonMap.Simulation
             }
             
             Console.WriteLine("Communication thread stop");
+        }
+
+        /**
+         * =================================================================================
+         *      PROCESS FUNCTIONS
+         * =================================================================================
+         */
+
+        /**
+         * Process Relations based on current action.
+         */
+        public static void ProcessRelations()
+        {
+            // Get current action
+            Data.Action currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
         }
     }
 }

@@ -15,9 +15,9 @@ namespace JsonMap.Simulation
         /** Strengh constants */
         public const float STRENGH_MAX = 5;
 
-        private Tuple<CharacterAgent, CharacterAgent> involvedAgents;
-        private float strengh;
-        private float nature;
+        public Tuple<CharacterAgent, CharacterAgent> involvedAgents;
+        public float strengh;
+        public float nature;
 
         public Relation(CharacterAgent pAgent1, CharacterAgent pAgent2)
         {

@@ -47,9 +47,40 @@ namespace JsonMap.Simulation
             return data;
         }
 
-        public void UpdateRelations()
+        /**
+         * This method try to get the relation between two agents but if this relation does not
+         * exist it is created stored in list of relations and returned.
+         * 
+         * By creating relations this way, only used relations will be created and used. In fact
+         * all agents are not linked to each others.
+         */
+        public Relation GetOrCreateRelation(CharacterAgent pagent1, CharacterAgent pagent2)
         {
+            /** Try to get relation if it exists */
+            Relation search = Relations.Find(delegate (Relation r)
+            {
+                if(r.involvedAgents.Item1.CharacterData.Id == pagent1.CharacterData.Id &&
+                    r.involvedAgents.Item2.CharacterData.Id == pagent2.CharacterData.Id)
+                {
+                    return true;
+                }
 
+                if (r.involvedAgents.Item1.CharacterData.Id == pagent2.CharacterData.Id &&
+                    r.involvedAgents.Item2.CharacterData.Id == pagent1.CharacterData.Id)
+                {
+                    return true;
+                }
+
+                return false;
+            });
+
+            if(search == null)
+            {
+                search = new Relation(pagent1, pagent2);
+                Relations.Add(search);
+            }
+
+            return search;
         }
     }
 }
