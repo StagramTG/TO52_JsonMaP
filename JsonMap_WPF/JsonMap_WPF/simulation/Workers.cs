@@ -45,6 +45,9 @@ namespace JsonMap.Simulation
                     /** Set next action as current action */
                     currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
                     SimulationManager.CurrentActionIndex++;
+
+                    /** Update relations */
+
                 }
 
                 /** Process physic simulation for current line */

@@ -31,21 +31,6 @@ namespace JsonMap.Simulation
                 Agents.Add(ca);
             }
 
-            // Create relations for each possible agents couple
-            for(int mainIndex = 0; mainIndex < (Agents.Count - 1); ++mainIndex)
-            {
-                for (int index = mainIndex+1; index < Agents.Count; ++index)
-                {
-                    if (Agents[index].CharacterData.Name != Agents[mainIndex].CharacterData.Name)
-                    {
-                        Relation r = new Relation(Agents[mainIndex], Agents[index]);
-                        Tuple<string, string> k = new Tuple<string, string>(Agents[mainIndex].CharacterData.Name, Agents[index].CharacterData.Name);
-
-                        Relations.Add(r);
-                    }
-                }
-            }
-
             return true;
         }
 
