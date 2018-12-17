@@ -174,14 +174,22 @@ namespace JsonMap.Simulation
                     Relation relation = env.GetOrCreateRelation(env.Agents[currentAgentId], env.Agents[processedAgentId]);
 
                     // Apply action influence on it
-                    
+                    relation.ApplyAction(currentAction);
                 }
 
                 // Process passive agents
                 for(int pasi = 0; pasi < currentAction.TargetsId.Count; ++pasi)
                 {
-                    // Apply action on influence on it
+                    // Get id for the processed agent
+                    int processedAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
+                        return a.CharacterData.Id == currentAction.CharactersId[pasi];
+                    }).CharacterData.Id;
 
+                    // Get or create the relation
+                    Relation relation = env.GetOrCreateRelation(env.Agents[currentAgentId], env.Agents[processedAgentId]);
+
+                    // Apply action on influence on it
+                    relation.ApplyAction(currentAction);
                 }
             }
         }
