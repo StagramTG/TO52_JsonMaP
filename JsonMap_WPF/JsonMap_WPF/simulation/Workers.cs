@@ -157,11 +157,21 @@ namespace JsonMap.Simulation
             // Foreach active agent
             for(int i = 0; i < currentAction.CharactersId.Count; ++i)
             {
+                // Get id of the current agent
+                int currentAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
+                    return a.CharacterData.Id == currentAction.CharactersId[i];
+                }).CharacterData.Id;
+
                 // Process active agents
                 for(int acti = i + 1; acti < currentAction.CharactersId.Count - 1; ++ acti)
                 {
+                    // Get id for the processed agent
+                    int processedAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
+                        return a.CharacterData.Id == currentAction.CharactersId[acti];
+                    }).CharacterData.Id;
+
                     // Get or create the relation
-                    Relation relation = env.GetOrCreateRelation(env.Agents[i], env.Agents[acti]);
+                    Relation relation = env.GetOrCreateRelation(env.Agents[currentAgentId], env.Agents[processedAgentId]);
 
                     // Apply action influence on it
                     
@@ -170,6 +180,7 @@ namespace JsonMap.Simulation
                 // Process passive agents
                 for(int pasi = 0; pasi < currentAction.TargetsId.Count; ++pasi)
                 {
+                    // Apply action on influence on it
 
                 }
             }

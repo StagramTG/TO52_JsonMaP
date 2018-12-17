@@ -25,5 +25,10 @@ namespace JsonMap.Simulation
             strengh = 0f;
             nature = 0f;
         }
+
+        public void ApplyAction(Data.Action paction)
+        {
+
+        }
     }
 }
