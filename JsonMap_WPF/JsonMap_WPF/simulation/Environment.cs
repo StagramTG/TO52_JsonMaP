@@ -58,9 +58,19 @@ namespace JsonMap.Simulation
             foreach(CharacterAgent agent in Agents)
             {
                 // Fetch relations for current agent
+                List<Relation> agentsRelations = Relations.FindAll(delegate (Relation r)
+                {
+                    if(r.involvedAgents.Item1.CharacterData.Id == agent.CharacterData.Id)
+                        return true;
+
+                    if (r.involvedAgents.Item2.CharacterData.Id == agent.CharacterData.Id)
+                        return true;
+
+                    return false;
+                });
 
                 // Update agent
-                //agent.Update();
+                agent.Update(agentsRelations);
             }
         }
 
