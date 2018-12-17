@@ -84,7 +84,7 @@ namespace JsonMap.Simulation
         public Relation GetOrCreateRelation(CharacterAgent pagent1, CharacterAgent pagent2)
         {
             /** Try to get relation if it exists */
-            Relation search = Relations.Find(delegate (Relation r)
+            int search = Relations.FindIndex(delegate (Relation r)
             {
                 if(r.involvedAgents.Item1.CharacterData.Id == pagent1.CharacterData.Id &&
                     r.involvedAgents.Item2.CharacterData.Id == pagent2.CharacterData.Id)
@@ -101,13 +101,16 @@ namespace JsonMap.Simulation
                 return false;
             });
 
-            if(search == null)
+            Console.WriteLine("relation index: " + search);
+
+            if (search == -1)
             {
-                search = new Relation(pagent1, pagent2);
-                Relations.Add(search);
+                Relation r = new Relation(pagent1, pagent2);
+                Relations.Add(r);
+                return r;
             }
 
-            return search;
+            return Relations[search];
         }
     }
 }

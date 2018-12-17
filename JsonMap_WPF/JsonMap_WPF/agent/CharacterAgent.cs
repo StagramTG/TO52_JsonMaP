@@ -26,6 +26,8 @@ namespace JsonMap.Agent
 
         public void Update(List<Simulation.Relation> prelations)
         {
+            //Console.WriteLine("Character: " + CharacterData.Name + " has " + prelations.Count);
+
             // Process force to apply
             foreach(Simulation.Relation relation in prelations)
             {
@@ -43,6 +45,7 @@ namespace JsonMap.Agent
 
                 // Process relation in order to apply force
                 Body.ApplyForce(direction);
+                Body.Update();
             }
 
             // Apply force
@@ -51,11 +54,13 @@ namespace JsonMap.Agent
         /** Convert current Agent's attributes to CharacterAgentData (Serializable) */
         public CharacterAgentData ToCharacterAgentData()
         {
-            CharacterAgentData data = new CharacterAgentData();
-            data.Id = CharacterData.Id;
-            data.Name = CharacterData.Name;
-            data.Position = Body.Position;
-            data.Weight = Weight;
+            CharacterAgentData data = new CharacterAgentData
+            {
+                Id = CharacterData.Id,
+                Name = CharacterData.Name,
+                Position = Body.Position,
+                Weight = Weight
+            };
 
             return data;
         }
