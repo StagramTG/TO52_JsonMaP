@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using JsonMap.Data;
 using JsonMap.Math;
@@ -23,9 +24,11 @@ namespace JsonMap.Agent
             Body = new RigidBody();
         }
 
-        public void Update()
+        public void Update(List<Simulation.Relation> prelations)
         {
-            
+            // Process force to apply
+
+            // Apply force
         }
 
         /** Convert current Agent's attributes to CharacterAgentData (Serializable) */

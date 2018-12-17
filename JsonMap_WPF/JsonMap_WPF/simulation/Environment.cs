@@ -48,6 +48,23 @@ namespace JsonMap.Simulation
         }
 
         /**
+         * This method update all agents of the simulation by passing related relations
+         * to each one. Each agent process his relations in order to apply forces to his body.
+         * 
+         * Relations are handled by the environment, agents never modify his relations.
+         */
+        public void UpdateAgents()
+        {
+            foreach(CharacterAgent agent in Agents)
+            {
+                // Fetch relations for current agent
+
+                // Update agent
+                //agent.Update();
+            }
+        }
+
+        /**
          * This method try to get the relation between two agents but if this relation does not
          * exist it is created stored in list of relations and returned.
          * 

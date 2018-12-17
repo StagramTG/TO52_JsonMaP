@@ -58,11 +58,7 @@ namespace JsonMap.Simulation
                     if(SimulationManager.SimulationShouldRun)
                     {
                         /** Do physics calculations */
-                        Console.WriteLine("Calculating sim...");
-                        foreach (var agent in SimulationManager.environment.Agents)
-                        {
-                            agent.Update();
-                        }
+                        SimulationManager.environment.UpdateAgents();
 
                         SimulationManager.SimSyncEvent.Set();
                         SimulationManager.ComSyncEvent.Reset();
