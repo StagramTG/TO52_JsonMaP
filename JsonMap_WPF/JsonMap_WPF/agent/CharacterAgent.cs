@@ -8,14 +8,6 @@ namespace JsonMap.Agent
     /** Agent aims to simulate Character */
     public class CharacterAgent
     {
-        /** Behavior of character in given action, he is a target or an active actor. */
-        public enum Behaviors
-        {
-            ACTIVE,
-            PASSIVE,
-            NOT_INVOLVED
-        }
-
         /** identification attributes */
         public Character CharacterData { get; private set; }
 
@@ -31,24 +23,9 @@ namespace JsonMap.Agent
             Body = new RigidBody();
         }
 
-        public void Update(Data.Action paction, Behaviors pbehavior)
+        public void Update()
         {
-            switch(pbehavior)
-            {
-                /** When character is an actor of the action */
-                case Behaviors.ACTIVE:
-                    ProcessActiveBehavior(paction);
-                    break;
-
-                /** When character is a target in action */
-                case Behaviors.PASSIVE:
-                    ProcessPassiveBehavior(paction);
-                    break;
-
-                case Behaviors.NOT_INVOLVED:
-                    ProcessNotInvolvedBehavior(paction);
-                    break;
-            }
+            
         }
 
         /** Convert current Agent's attributes to CharacterAgentData (Serializable) */
@@ -61,27 +38,6 @@ namespace JsonMap.Agent
             data.Weight = Weight;
 
             return data;
-        }
-
-        private void ProcessActiveBehavior(Data.Action paction)
-        {
-            /** Process relations */
-
-            /** Process Physics */
-        }
-
-        private void ProcessPassiveBehavior(Data.Action paction)
-        {
-            /** Process relations */
-
-            /** Process Physics */
-        }
-
-        private void ProcessNotInvolvedBehavior(Data.Action paction)
-        {
-            /** Process relations */
-
-            /** Process Physics */
         }
     }
 }
