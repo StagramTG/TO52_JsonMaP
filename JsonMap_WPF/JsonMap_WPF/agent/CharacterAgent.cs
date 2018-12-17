@@ -27,6 +27,23 @@ namespace JsonMap.Agent
         public void Update(List<Simulation.Relation> prelations)
         {
             // Process force to apply
+            foreach(Simulation.Relation relation in prelations)
+            {
+                // Find vector to other agent of the relation
+                Vector3 startPoint = relation.involvedAgents.Item1.CharacterData.Id == CharacterData.Id ? 
+                    relation.involvedAgents.Item1.Body.Position : 
+                    relation.involvedAgents.Item2.Body.Position;
+
+                Vector3 endPoint = relation.involvedAgents.Item1.CharacterData.Id != CharacterData.Id ?
+                    relation.involvedAgents.Item1.Body.Position :
+                    relation.involvedAgents.Item2.Body.Position;
+
+                Vector3 direction = endPoint - startPoint;
+                direction = (direction * relation.nature).Normalized;
+
+                // Process relation in order to apply force
+                Body.ApplyForce(direction);
+            }
 
             // Apply force
         }
