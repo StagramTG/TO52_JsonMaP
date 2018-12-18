@@ -46,7 +46,7 @@ namespace JsonMap.Simulation
 
                     /** Update relations */
                     Console.WriteLine("Process RELATIONS !!!!");
-                    ProcessRelations();
+                    SimulationManager.environment.UpdateAgentsRelations(currentAction);
                 }
 
                 /** Process physic simulation for current line */
@@ -92,20 +92,6 @@ namespace JsonMap.Simulation
                 Messages.CreateCharacterAgentMessage(SimulationManager.environment.GetCharacterAgentsData())
             );
             stream.Write(toSend, 0, toSend.Length);
-        }
-
-        /**
-         * =================================================================================
-         *      PROCESS FUNCTIONS
-         * =================================================================================
-         */
-
-        /**
-         * Process Relations based on current action.
-         */
-        public static void ProcessRelations()
-        {
-            
         }
     }
 }
