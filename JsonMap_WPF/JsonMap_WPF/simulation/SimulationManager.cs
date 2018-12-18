@@ -38,7 +38,7 @@ namespace JsonMap.Simulation
         public static ManualResetEvent PauseEvent      { get; private set; }
         public static ManualResetEvent SimSyncEvent    { get; private set; }
         public static ManualResetEvent ComSyncEvent    { get; private set; }
-        public static Environment environment         { get; private set; }
+        public static Environment environment          { get; private set; }
 
         /** Communication related */
         public static String HostAdress                { get; set; } = "127.0.0.1";
@@ -47,7 +47,6 @@ namespace JsonMap.Simulation
 
         /** Worker Threads instance */
         private static Thread SimulationThread;
-        private static Thread CommunicationThread;
 
         /** Time manager */
         private static TimeManager timeManager;
@@ -117,9 +116,7 @@ namespace JsonMap.Simulation
 
             /** Launch worker threads */
             SimulationThread = new Thread(Workers.SimulationWorker);
-            CommunicationThread = new Thread(Workers.CommunicationWorker);
             SimulationThread.Start();
-            CommunicationThread.Start();
 
             return LAUNCH_SUCCESS;
         }
@@ -155,7 +152,6 @@ namespace JsonMap.Simulation
             ComSyncEvent.Set();
 
             SimulationThread.Join();
-            CommunicationThread.Join();
 
             Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(Messages.EndMessage);
             ComSocket.GetStream().Write(bytes, 0, bytes.Length);

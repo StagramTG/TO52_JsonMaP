@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Net.Sockets;
 
 namespace JsonMap.Simulation
@@ -7,9 +9,9 @@ namespace JsonMap.Simulation
     public static class Workers
     {
         /** Time between each line processing, Simulation time step isn't influenced */
-        public static float ProcessingTimeStep { get; set; } = 2f;
+        public static float ProcessingTimeStep { get; set; } = 1f;
         /** Time between each physics recalculation of forces apply  to rigid body, Processing time step isn't influenced */
-        public static float SimulationTimeStep { get; set; } = 1f / 60f;
+        public static float SimulationTimeStep { get; set; } = 1f / 30f;
 
         /**
          * Method that runs in simulation Thread.
@@ -25,20 +27,16 @@ namespace JsonMap.Simulation
 
             Console.WriteLine("Simulation thread start");
 
-            TimeManager.Instance.Update();
-
             while(SimulationManager.SimulationShouldRun)
             {
                 /** Check if simulation is in pause state */
-                if(SimulationManager.SimulationShouldPause)
+                if (SimulationManager.SimulationShouldPause)
                 {
-                    Console.WriteLine("Simulation pause");
                     SimulationManager.PauseEvent.WaitOne();
-                    Console.WriteLine("Simulation unpause");
                 }
 
                 /** Process simulation for next line */
-                if(elapsedTimeProcessing >= ProcessingTimeStep)
+                if (elapsedTimeProcessing >= ProcessingTimeStep)
                 {
                     elapsedTimeProcessing = 0f;
 
@@ -47,74 +45,53 @@ namespace JsonMap.Simulation
                     SimulationManager.CurrentActionIndex++;
 
                     /** Update relations */
+                    Console.WriteLine("Process RELATIONS !!!!");
                     ProcessRelations();
                 }
 
                 /** Process physic simulation for current line */
-                if(elapsedTimeSimulation >= SimulationTimeStep)
+                if (elapsedTimeSimulation >= SimulationTimeStep)
                 {
-                    SimulationManager.ComSyncEvent.WaitOne();
+                    Console.WriteLine("SIM TIME: " + elapsedTimeSimulation);
 
-                    if(SimulationManager.SimulationShouldRun)
+                    if (SimulationManager.SimulationShouldRun)
                     {
                         /** Do physics calculations */
                         SimulationManager.environment.UpdateAgents();
 
-                        SimulationManager.SimSyncEvent.Set();
-                        SimulationManager.ComSyncEvent.Reset();
+                        /** Launch communication task */
+                        var t = Task.Run(async () => await SendData());
+                        t.Wait();
+
+                        Console.WriteLine("End task wait !!!!");
+                        
                         elapsedTimeSimulation = 0f;
                     }
                 }
 
                 /** Update elapsed times */
+                TimeManager.Instance.Update();
                 float elapsedTime = TimeManager.Instance.DeltaTime;
                 elapsedTimeProcessing += elapsedTime;
                 elapsedTimeSimulation += elapsedTime;
-                TimeManager.Instance.Update();
             }
-
-            SimulationManager.SimSyncEvent.Set();
 
             Console.WriteLine("Simulation thread stop");
         }
 
         /**
-         * Method that runs in communication Thread.
-         * Send calculated data to render application through Socket.
+         * Asynchronous communication task
          */
-        public static void CommunicationWorker()
+        static async Task SendData()
         {
-            Console.WriteLine("Communication thread start");
-            float totalElapsedTime = 0;
+            Console.WriteLine("SendData !");
 
-            while (SimulationManager.SimulationShouldRun)
-            {
-                if(totalElapsedTime >= SimulationTimeStep)
-                {
-                    SimulationManager.SimSyncEvent.WaitOne();
-
-                    if(SimulationManager.SimulationShouldRun)
-                    {
-                        /** Send stuff through socket */
-                        Console.WriteLine("Communication send data...");
-
-                        NetworkStream stream = SimulationManager.ComSocket.GetStream();
-                        byte[] toSend = System.Text.Encoding.ASCII.GetBytes(
-                            Messages.CreateCharacterAgentMessage(SimulationManager.environment.GetCharacterAgentsData())
-                        );
-                        stream.Write(toSend, 0, toSend.Length);
-
-                        SimulationManager.ComSyncEvent.Set();
-                        SimulationManager.SimSyncEvent.Reset();
-                        totalElapsedTime = 0;
-                    }
-                }
-
-                /** Manage time */
-                totalElapsedTime += TimeManager.Instance.DeltaTime;
-            }
-            
-            Console.WriteLine("Communication thread stop");
+            /** Send stuff through socket */
+            NetworkStream stream = SimulationManager.ComSocket.GetStream();
+            byte[] toSend = System.Text.Encoding.ASCII.GetBytes(
+                Messages.CreateCharacterAgentMessage(SimulationManager.environment.GetCharacterAgentsData())
+            );
+            stream.Write(toSend, 0, toSend.Length);
         }
 
         /**
@@ -128,48 +105,7 @@ namespace JsonMap.Simulation
          */
         public static void ProcessRelations()
         {
-            // Get current action
-            Data.Action currentAction = SimulationManager.CurrentEpisode.Actions[SimulationManager.CurrentActionIndex];
-            Environment env = SimulationManager.environment;
-
-            // Foreach active agent
-            for(int i = 0; i < currentAction.CharactersId.Count; ++i)
-            {
-                // Get id of the current agent
-                int currentAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
-                    return a.CharacterData.Id == currentAction.CharactersId[i];
-                }).CharacterData.Id;
-
-                // Process active agents
-                for(int acti = i + 1; acti < currentAction.CharactersId.Count - 1; ++ acti)
-                {
-                    // Get id for the processed agent
-                    int processedAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
-                        return a.CharacterData.Id == currentAction.CharactersId[acti];
-                    }).CharacterData.Id;
-
-                    // Get or create the relation
-                    Relation relation = env.GetOrCreateRelation(env.Agents[currentAgentId], env.Agents[processedAgentId]);
-
-                    // Apply action influence on it
-                    relation.ApplyAction(currentAction);
-                }
-
-                // Process passive agents
-                for(int pasi = 0; pasi < currentAction.TargetsId.Count; ++pasi)
-                {
-                    // Get id for the processed agent
-                    int processedAgentId = env.Agents.Find(delegate (Agent.CharacterAgent a) {
-                        return a.CharacterData.Id == currentAction.CharactersId[pasi];
-                    }).CharacterData.Id;
-
-                    // Get or create the relation
-                    Relation relation = env.GetOrCreateRelation(env.Agents[currentAgentId], env.Agents[processedAgentId]);
-
-                    // Apply action on influence on it
-                    relation.ApplyAction(currentAction);
-                }
-            }
+            
         }
     }
 }

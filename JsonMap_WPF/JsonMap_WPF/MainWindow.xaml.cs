@@ -30,7 +30,7 @@ namespace JsonMap
             SimulationManager.CurrentProcessedLineChange += SimulationManager_CurrentProcessedLineChange;
         }
 
-        private async void SimulationManager_CurrentProcessedLineChange(object sender, EventArgs e)
+        private void SimulationManager_CurrentProcessedLineChange(object sender, EventArgs e)
         {
             int totalLines = SimulationManager.CurrentEpisode.LinesCount;
             int percentage = (SimulationManager.CurrentActionIndex * 100) / totalLines;

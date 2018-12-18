@@ -1,49 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using JsonMap.Agent;
 
 namespace JsonMap.Simulation
 {
+    /**
+     * Structure Relation
+     * 
+     * Represents relation's caracteristics between two Character agents
+     * that are influence by actions.
+     */
     public class Relation
     {
-        /** Strengh constants */
-        public const float STRENGH_MAX = 5;
+        private static int idCount = 0;
 
-        public Tuple<CharacterAgent, CharacterAgent> involvedAgents;
-        public float strengh;
-        public float nature;
+        public int Id { get; set; }
+        public float Strengh { get; set; }
+        public float Nature { get; set; }
 
-        public Relation(CharacterAgent pAgent1, CharacterAgent pAgent2)
+        public Relation()
         {
-            involvedAgents = new Tuple<CharacterAgent, CharacterAgent>(pAgent1, pAgent2);
-            strengh = SimulationConfig.STRENGH_MIN;
-            nature = 0f;
-        }
-
-        public void ApplyAction(Data.Action paction)
-        {
-            // Process the nature of the relation
-            switch(paction.Influence)
-            {
-                case SimulationConfig.INFLUENCE_FACTOR_NEGATIVE:
-                    nature = System.Math.Max(nature + SimulationConfig.INFLUENCE_FACTOR_NEGATIVE, SimulationConfig.INFLUENCE_MAX_NEGATIVE);
-                    break;
-
-                case SimulationConfig.INFLUENCE_FACTOR_NEUTRAL:
-                    nature = System.Math.Min(nature + SimulationConfig.INFLUENCE_FACTOR_NEUTRAL, SimulationConfig.INFLUENCE_MAX_POSITIVE);
-                    break;
-
-                case SimulationConfig.INFLUENCE_FACTOR_POSITIVE:
-                    nature += SimulationConfig.INFLUENCE_FACTOR_POSITIVE;
-                    break;
-            }
-
-            // Process strengh of the relation
-            strengh = System.Math.Min(
-                System.Math.Max(strengh + SimulationConfig.STRENGH_FACTOR, SimulationConfig.STRENGH_MIN), 
-                SimulationConfig.STRENGH_MAX
-            );
+            Id = idCount++;
+            Strengh = 0;
+            Nature = 0;
         }
     }
 }

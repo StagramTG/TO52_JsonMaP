@@ -16,39 +16,28 @@ namespace JsonMap.Agent
         public float Weight   { get; set; }
         public RigidBody Body { get; private set; }
 
+        /** Relations */
+        private Dictionary<int, Simulation.Relation> relations;
+
         public CharacterAgent(Character pcharacter)
         {
             CharacterData = pcharacter;
 
             Weight = Simulation.SimulationConfig.WEIGHT_START;
             Body = new RigidBody();
+            relations = new Dictionary<int, Simulation.Relation>();
         }
 
-        public void Update(List<Simulation.Relation> prelations)
+        public void UpdateRelation(Data.Action paction)
         {
-            //Console.WriteLine("Character: " + CharacterData.Name + " has " + prelations.Count);
+            // Update relation with action influence
+        }
 
-            // Process force to apply
-            foreach(Simulation.Relation relation in prelations)
-            {
-                // Find vector to other agent of the relation
-                Vector3 startPoint = relation.involvedAgents.Item1.CharacterData.Id == CharacterData.Id ? 
-                    relation.involvedAgents.Item1.Body.Position : 
-                    relation.involvedAgents.Item2.Body.Position;
+        public void UpdatePhysics()
+        {
+            // Update applyed forces
 
-                Vector3 endPoint = relation.involvedAgents.Item1.CharacterData.Id != CharacterData.Id ?
-                    relation.involvedAgents.Item1.Body.Position :
-                    relation.involvedAgents.Item2.Body.Position;
-
-                Vector3 direction = endPoint - startPoint;
-                direction = (direction * relation.nature).Normalized;
-
-                // Process relation in order to apply force
-                Body.ApplyForce(direction);
-                Body.Update();
-            }
-
-            // Apply force
+            // Apply forces
         }
 
         /** Convert current Agent's attributes to CharacterAgentData (Serializable) */
