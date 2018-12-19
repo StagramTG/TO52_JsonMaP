@@ -11,9 +11,13 @@ namespace JsonMap.Simulation
         public List<CharacterAgent> Agents { get; private set; }
         public int Count => Agents.Count;
 
+        public List<int> ProcessedRelations;
+
         public Environment()
         {
             Agents = new List<CharacterAgent>();
+
+            ProcessedRelations = new List<int>();
         }
 
         public bool Setup(Episode pepisode)
@@ -52,15 +56,14 @@ namespace JsonMap.Simulation
         {
             foreach (CharacterAgent agent in Agents)
             {
-                agent.UpdateRelation(paction);
+                ProcessedRelations.AddRange(agent.UpdateRelation(paction));
             }
+
+            ProcessedRelations.Clear();
         }
 
         /**
-         * This method update all agents of the simulation by passing related relations
-         * to each one. Each agent process his relations in order to apply forces to his body.
-         * 
-         * Relations are handled by the environment, agents never modify his relations.
+         * This method update all agents physical property by applying 
          */
         public void UpdateAgents()
         {

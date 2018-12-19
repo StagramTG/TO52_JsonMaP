@@ -28,9 +28,10 @@ namespace JsonMap.Agent
             relations = new Dictionary<int, Simulation.Relation>();
         }
 
-        public void UpdateRelation(Data.Action paction)
+        public int[] UpdateRelation(Data.Action paction)
         {
             // Update relation with action influence
+            return new int[0];
         }
 
         public void UpdatePhysics()
