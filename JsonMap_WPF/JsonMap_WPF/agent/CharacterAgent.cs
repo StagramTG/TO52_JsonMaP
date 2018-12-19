@@ -66,8 +66,24 @@ namespace JsonMap.Agent
         public void UpdatePhysics()
         {
             // Update applyed forces
+            foreach(var r in relations)
+            {
+                int agid = Simulation.SimulationManager.environment.Agents.FindIndex((a) => { 
+                    return a.CharacterData.Id == r.Key;
+                });
+
+                if(agid == -1)
+                    return;
+
+                CharacterAgent ag = Simulation.SimulationManager.environment.Agents[agid];
+
+                // Calculate forces
+
+                // Apply forces
+            }
             
-            // Apply forces
+            // Update body
+            Body.Update();
         }
 
         /** Convert current Agent's attributes to CharacterAgentData (Serializable) */
