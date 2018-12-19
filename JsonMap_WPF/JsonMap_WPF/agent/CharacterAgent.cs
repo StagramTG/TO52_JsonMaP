@@ -77,8 +77,6 @@ namespace JsonMap.Agent
 
                 CharacterAgent ag = Simulation.SimulationManager.environment.Agents[agid];
 
-                // Calculate forces
-
                 // Find direction vector between agents that involved in relation
                 Vector3 startPoint = Body.Position;
                 Vector3 endPoint = ag.Body.Position;
