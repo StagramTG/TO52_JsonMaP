@@ -79,7 +79,16 @@ namespace JsonMap.Agent
 
                 // Calculate forces
 
+                // Find direction vector between agents that involved in relation
+                Vector3 startPoint = Body.Position;
+                Vector3 endPoint = ag.Body.Position;
+                Vector3 direction = (endPoint - startPoint).Normalized;
+
+                // Apply relation to calculated direction
+                direction *= r.Value.Nature;
+
                 // Apply forces
+                Body.ApplyForce(direction);
             }
             
             // Update body
