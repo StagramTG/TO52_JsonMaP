@@ -73,17 +73,18 @@ namespace JsonMap.Agent
                 });
 
                 if(agid == -1)
-                    return;
+                    continue;
 
                 CharacterAgent ag = Simulation.SimulationManager.environment.Agents[agid];
 
                 // Find direction vector between agents that involved in relation
                 Vector3 startPoint = Body.Position;
                 Vector3 endPoint = ag.Body.Position;
-                Vector3 direction = (endPoint - startPoint).Normalized;
+                Vector3 direction = (endPoint - startPoint);
+                direction.Normalize();
 
                 // Apply relation to calculated direction
-                direction *= r.Value.Nature;
+                direction *= r.Value.Nature == 0 ? 1 : r.Value.Nature;
 
                 // Apply forces
                 Body.ApplyForce(direction);
