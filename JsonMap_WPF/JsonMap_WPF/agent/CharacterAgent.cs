@@ -81,13 +81,15 @@ namespace JsonMap.Agent
                 Vector3 startPoint = Body.Position;
                 Vector3 endPoint = ag.Body.Position;
                 Vector3 direction = (endPoint - startPoint);
+
+                float distance = direction.Norm;
                 direction.Normalize();
 
                 // Apply relation to calculated direction
-                direction *= r.Value.Nature == 0 ? 1 : r.Value.Nature;
+                Vector3 force = (direction * (r.Value.Nature * Weight * ag.Weight)) / (distance * distance);
 
                 // Apply forces
-                Body.ApplyForce(direction);
+                Body.ApplyForce(force);
             }
             
             // Update body

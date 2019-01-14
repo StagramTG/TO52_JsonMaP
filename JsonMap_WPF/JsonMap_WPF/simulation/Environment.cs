@@ -29,7 +29,7 @@ namespace JsonMap.Simulation
             {
                 CharacterAgent ca = new CharacterAgent(character);
                 ca.Weight = (float)(character.Occ * 100f) / (float)pepisode.LinesCount;
-                ca.Body.Position = new Math.Vector3(rand.Next(20), 0f, rand.Next(20));
+                ca.Body.Position = new Math.Vector3(rand.Next(-10, 10), rand.Next(-10, 10), rand.Next(-10, 10));
                 Agents.Add(ca);
             }
 

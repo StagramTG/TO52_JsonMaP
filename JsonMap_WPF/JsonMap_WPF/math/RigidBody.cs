@@ -25,6 +25,7 @@ namespace JsonMap.Math
         {
             Position = new Vector3(0, 0, 0);
             Velocity = new Vector3(0, 0, 0);
+            FrictionFactor = 0.1f;
 
             timeManager = TimeManager.Instance;
         }
@@ -53,7 +54,18 @@ namespace JsonMap.Math
 
             // Apply velocity to position
             Velocity -= (Velocity * FrictionFactor);
+            if(Velocity.Norm > 100f)
+            {
+                Velocity = Velocity.Normalized * 100f;
+            }
+
             Position += Velocity * timeManager.DeltaTime;
+
+            // Bound distance
+            if(Position.Norm > 10f)
+            {
+                Position = Position.Normalized * 10f;
+            }
         }
     }
 }
